@@ -1,0 +1,121 @@
+.formWrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-medium);
+  background-color: #ffffff;
+}
+
+.formIntro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.formIntro h3 {
+  font-size: 1.8rem;
+  color: var(--color-maroon-deep);
+  margin-bottom: 0.5rem;
+}
+
+.formIntro p {
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+.rsvpForm {
+  margin-top: 1.5rem;
+}
+
+.errorBanner {
+  background-color: rgba(229, 57, 53, 0.1);
+  border-left: 4px solid #e53935;
+  color: #c62828;
+  padding: 1rem;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.expandableFields {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.successCard {
+  text-align: center;
+  background-color: rgba(253, 251, 247, 0.98);
+  box-shadow: var(--shadow-medium), var(--shadow-gold);
+  animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.successIcon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.5rem;
+  background-color: rgba(197, 160, 41, 0.1);
+  border: 2px dashed var(--color-gold-deep);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold-deep);
+  animation: bounce 1.5s infinite;
+}
+
+.successCard h3 {
+  font-size: 2rem;
+  color: var(--color-maroon-deep);
+  margin-bottom: 1rem;
+}
+
+.successMessage {
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.heartDecoration {
+  margin-top: 2rem;
+  color: var(--color-maroon-rich);
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}

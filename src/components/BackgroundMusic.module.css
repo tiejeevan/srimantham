@@ -1,0 +1,88 @@
+.musicContainer {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+}
+
+.musicBtn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-gold-deep), #e6b822);
+  border: 2px solid var(--color-maroon-deep);
+  color: var(--color-maroon-deep);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(94, 9, 26, 0.2);
+  transition: var(--transition-smooth);
+  position: relative;
+  outline: none;
+}
+
+.musicBtn:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-gold), 0 6px 20px rgba(94, 9, 26, 0.3);
+}
+
+.musicBtn.playing {
+  animation: spin 8s linear infinite;
+  background: linear-gradient(135deg, var(--color-maroon-rich), var(--color-maroon-deep));
+  color: var(--color-gold-bright);
+  border-color: var(--color-gold-deep);
+}
+
+.iconActive, .iconInactive {
+  transition: var(--transition-smooth);
+}
+
+/* Pulsing outer ring when playing */
+.pulseRing {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold-deep);
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.playing .pulseRing {
+  animation: musicPulse 2.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes musicPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .musicContainer {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  
+  .musicBtn {
+    width: 48px;
+    height: 48px;
+  }
+}

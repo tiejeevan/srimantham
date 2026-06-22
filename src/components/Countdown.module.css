@@ -1,0 +1,106 @@
+.countdownContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2.5rem auto;
+  max-width: 600px;
+  padding: 1.8rem;
+  border-radius: var(--border-radius-md);
+  background: rgba(94, 9, 26, 0.03);
+  border: 1px solid rgba(197, 160, 41, 0.25);
+  box-shadow: inset 0 0 10px rgba(197, 160, 41, 0.05);
+}
+
+.timeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.timeNumber {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-maroon-deep);
+  line-height: 1;
+  text-shadow: 1px 1px 2px rgba(197, 160, 41, 0.2);
+}
+
+.timeLabel {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--color-text-gold);
+  margin-top: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.timeDivider {
+  font-size: 1.5rem;
+  color: var(--color-gold-deep);
+  opacity: 0.8;
+  user-select: none;
+}
+
+.countdownLoader {
+  font-family: var(--font-accent);
+  font-size: 1.2rem;
+  color: var(--color-text-gold);
+  text-align: center;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.countdownLoader span {
+  display: inline-block;
+}
+
+.celebrationMessage {
+  text-align: center;
+  padding: 2.5rem;
+  border: 2px solid var(--color-gold-deep);
+  border-radius: var(--border-radius-md);
+  background: rgba(253, 251, 247, 0.95);
+  box-shadow: var(--shadow-medium);
+  animation: float 4s ease-in-out infinite;
+}
+
+.celebrationMessage h3 {
+  font-size: 1.8rem;
+  color: var(--color-maroon-deep);
+  margin-bottom: 0.8rem;
+}
+
+.celebrationMessage p {
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .countdownContainer {
+    gap: 0.6rem;
+    padding: 1.2rem 0.8rem;
+  }
+
+  .timeBox {
+    min-width: 60px;
+  }
+
+  .timeNumber {
+    font-size: 2rem;
+  }
+
+  .timeLabel {
+    font-size: 0.75rem;
+  }
+
+  .timeDivider {
+    font-size: 1rem;
+  }
+}

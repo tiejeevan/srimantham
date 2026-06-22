@@ -1,95 +1,126 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import InvitationCard from '@/components/InvitationCard';
+import Countdown from '@/components/Countdown';
+import RSVPForm from '@/components/RSVPForm';
+import WishesWall from '@/components/WishesWall';
+import VenueMap from '@/components/VenueMap';
+import BackgroundMusic from '@/components/BackgroundMusic';
+import styles from './page.module.css';
+
+// Falling marigold/rose petals background component
+function FlowerPetals() {
+  const [petals, setPetals] = useState<Array<{ id: number; left: string; delay: string; duration: string; scale: number; type: 'saffron' | 'pink' | 'marigold' }>>([]);
+
+  useEffect(() => {
+    // Generate petals only on client-side to prevent hydration mismatches
+    const generated = Array.from({ length: 24 }).map((_, i) => {
+      const types: ('saffron' | 'pink' | 'marigold')[] = ['saffron', 'pink', 'marigold'];
+      return {
+        id: i,
+        left: `${Math.random() * 100}vw`,
+        delay: `${Math.random() * 15}s`,
+        duration: `${8 + Math.random() * 10}s`,
+        scale: 0.5 + Math.random() * 0.8,
+        type: types[i % 3],
+      };
+    });
+    setPetals(generated);
+  }, []);
+
+  return (
+    <div className="flower-container">
+      {petals.map((petal) => (
+        <div
+          key={petal.id}
+          className={`flower-petal ${petal.type === 'pink' ? 'pink' : petal.type === 'marigold' ? 'marigold' : ''}`}
+          style={{
+            left: petal.left,
+            animationDelay: petal.delay,
+            animationDuration: petal.duration,
+            transform: `scale(${petal.scale})`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
+  const targetEventDate = '2026-10-18T10:30:00'; // Target date for Shreemantam
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className={`${styles.main} bg-mandala`}>
+      {/* Background audio track */}
+      <BackgroundMusic />
+
+      {/* Decorative falling marigold flowers */}
+      <FlowerPetals />
+
+      {/* Hero Invitation Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.topBanner}>
+          <span>❈ SWAGATHAM ❈</span>
         </div>
-      </div>
+        <InvitationCard />
+      </section>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* Countdown Timer Section */}
+      <section className={styles.countdownSection}>
+        <div className="section-header">
+          <span className="section-subtitle">Auspicious Countdown</span>
+          <h2 className="section-title">Celebrating Soon</h2>
+          <div className="divider-traditional"></div>
+        </div>
+        <Countdown targetDate={targetEventDate} />
+      </section>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+      {/* RSVP Section */}
+      <section id="rsvp" className={styles.rsvpSection}>
+        <div className="section-header">
+          <span className="section-subtitle">Confirm Attendance</span>
+          <h2 className="section-title">Be Our Guest</h2>
+          <div className="divider-traditional"></div>
+        </div>
+        <div className="section-container">
+          <RSVPForm />
+        </div>
+      </section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+      {/* Venue & Location Section */}
+      <section id="venue" className={styles.venueSection}>
+        <div className="section-header">
+          <span className="section-subtitle">Event Location</span>
+          <h2 className="section-title">The Venue</h2>
+          <div className="divider-traditional"></div>
+        </div>
+        <div className="section-container">
+          <VenueMap />
+        </div>
+      </section>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+      {/* Guest Blessings Board Section */}
+      <section id="blessings" className={styles.blessingsSection}>
+        <div className="section-header">
+          <span className="section-subtitle">Wishes & Prayers</span>
+          <h2 className="section-title">Blessings Wall</h2>
+          <div className="divider-traditional"></div>
+        </div>
+        <div className="section-container">
+          <WishesWall />
+        </div>
+      </section>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      {/* Auspicious Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.footerMandala}>❈</div>
+        <p className={styles.footerGreeting}>We look forward to welcoming you!</p>
+        <p className={styles.footerHosts}>— Chowdapu & Sanjana & Rahul's Family</p>
+        <div className={styles.copyright}>
+          <p>© 2026 Shreemantam Invitation. Crafted with love.</p>
+        </div>
+      </footer>
     </main>
   );
 }
