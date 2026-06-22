@@ -459,3 +459,70 @@ p {
   border-radius: 50%;
   box-shadow: inset 0 0 5px rgba(230, 81, 0, 0.4);
 }
+
+/* Mobile-First Adaptations */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .section-container {
+    padding: 2.5rem 1rem;
+  }
+  
+  .border-traditional {
+    padding: 1.25rem 1rem;
+  }
+  
+  .border-traditional::after {
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+  }
+  
+  .btn-gold, .btn-maroon {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .section-header {
+    margin-bottom: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-input, .form-textarea, .form-select {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .radio-card {
+    padding: 0.8rem;
+  }
+
+  .radio-card span {
+    font-size: 0.9rem;
+  }
+}

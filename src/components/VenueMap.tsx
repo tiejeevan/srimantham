@@ -5,11 +5,11 @@ import { MapPin, Navigation, Phone, Compass } from 'lucide-react';
 import styles from './VenueMap.module.css';
 
 export default function VenueMap() {
-  const address = 'Grand Palace, Royal Hall, Palace Cross Road, Vasanth Nagar, Bengaluru, Karnataka 560052';
+  const address = '6267 Stumph Rd, Cleveland, OH 44130';
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   
-  // Embed link for Bangalore Palace area placeholder
-  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.484257121087!2d77.59202491534954!3d12.998428817751998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1642289cf789%3A0xc39bc6551b93fcd!2sBangalore%20Palace!5e0!3m2!1sen!2sin!4v1655000000000!5m2!1sen!2sin";
+  // Embed link for 6267 Stumph Rd, Cleveland, OH 44130
+  const mapEmbedUrl = "https://maps.google.com/maps?q=6267%20Stumph%20Rd,%20Cleveland,%20OH%2044130&t=&z=15&ie=UTF8&iwloc=&output=embed";
 
   return (
     <div className={`${styles.card} border-traditional`}>
@@ -35,7 +35,7 @@ export default function VenueMap() {
             <Phone className={styles.icon} size={22} />
             <div>
               <h5>Contact Person</h5>
-              <p>Chowdapu Family: +91 98765 43210</p>
+              <p>Jeevan & Vibhaswi: +1 (314) 755-8899</p>
             </div>
           </div>
 

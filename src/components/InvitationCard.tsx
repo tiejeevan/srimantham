@@ -8,9 +8,13 @@ export default function InvitationCard() {
   return (
     <div className={styles.cardContainer}>
       <div className={`${styles.invitationCard} border-traditional`}>
-        {/* Top traditional mandala design placeholder */}
-        <div className={styles.mandalaHeader}>
-          <div className={styles.mandalaOrnament}>❈</div>
+        {/* Cute Baby Ganesha Image */}
+        <div className={styles.ganeshaHeader}>
+          <img 
+            src="/baby-ganesha.png" 
+            alt="Lord Ganesha" 
+            className={styles.ganeshaImg}
+          />
         </div>
 
         {/* Auspicious header line */}
@@ -23,9 +27,9 @@ export default function InvitationCard() {
           <span className={styles.ceremonySubtitle}>(Traditional Baby Shower Ceremony)</span>
           
           <div className={styles.coupleNames}>
-            <h2>Sanjana</h2>
+            <h2>Jeevan</h2>
             <span className={styles.ampersand}>&</span>
-            <h2>Rahul</h2>
+            <h2>Vibhaswi</h2>
           </div>
 
           <p className={styles.invitationVerse}>
@@ -41,8 +45,8 @@ export default function InvitationCard() {
             <div className={styles.infoItem}>
               <Calendar className={styles.infoIcon} size={20} />
               <div className={styles.infoText}>
-                <strong>Sunday</strong>
-                <span>October 18, 2026</span>
+                <strong>Friday</strong>
+                <span>July 3, 2026</span>
               </div>
             </div>
 
@@ -57,8 +61,8 @@ export default function InvitationCard() {
             <div className={styles.infoItem}>
               <MapPin className={styles.infoIcon} size={20} />
               <div className={styles.infoText}>
-                <strong>Grand Palace</strong>
-                <span>Royal Hall, Bangalore</span>
+                <strong>Cleveland, OH</strong>
+                <span>6267 Stumph Rd, 44130</span>
               </div>
             </div>
           </div>

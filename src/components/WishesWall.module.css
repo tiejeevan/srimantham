@@ -187,3 +187,23 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 600px) {
+  .grid {
+    gap: 1.5rem;
+  }
+  .boardCard {
+    padding: 1.2rem 1rem;
+    max-height: 500px;
+  }
+  .boardTitle {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .wishItem {
+    padding: 1rem;
+  }
+  .wishMessage {
+    font-size: 0.95rem;
+  }
+}

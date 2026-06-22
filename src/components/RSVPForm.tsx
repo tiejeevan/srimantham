@@ -137,7 +137,7 @@ export default function RSVPForm() {
     <div className={`${styles.formWrapper} border-traditional`}>
       <div className={styles.formIntro}>
         <h3>Will you join our celebration?</h3>
-        <p>Please share your response below before October 5, 2026 to help us make the best arrangements.</p>
+        <p>Please share your response below before June 20, 2026 to help us make the best arrangements.</p>
         <div className="divider-traditional"></div>
       </div>
 

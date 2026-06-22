@@ -17,10 +17,12 @@ interface TimeLeft {
 
 export default function Countdown({ targetDate }: CountdownProps) {
   const calculateTimeLeft = (): TimeLeft => {
-    const difference = +new Date(targetDate) - +new Date();
+    // Format the date string so it is parsed correctly across all browsers (especially Safari)
+    const formattedDate = targetDate.replace(/-/g, '/').replace('T', ' ');
+    const difference = +new Date(formattedDate) - +new Date();
     let timeLeft: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0, isCompleted: false };
 
-    if (difference > 0) {
+    if (!isNaN(difference) && difference > 0) {
       timeLeft = {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
@@ -28,6 +30,8 @@ export default function Countdown({ targetDate }: CountdownProps) {
         seconds: Math.floor((difference / 1000) % 60),
         isCompleted: false,
       };
+    } else if (isNaN(difference)) {
+      console.error("Invalid targetDate format passed to Countdown:", targetDate);
     } else {
       timeLeft.isCompleted = true;
     }
