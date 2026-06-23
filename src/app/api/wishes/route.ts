@@ -15,8 +15,13 @@ export async function GET() {
     return NextResponse.json({ success: true, data: list });
   } catch (error: any) {
     console.error('Error fetching blessings:', error);
+    let errorMessage = error.message || 'Internal server error.';
+    if (error.cause) {
+      const causeMessage = error.cause instanceof Error ? error.cause.message : String(error.cause);
+      errorMessage += ` (Cause: ${causeMessage})`;
+    }
     return NextResponse.json(
-      { success: false, error: error.message || 'Internal server error.' },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }
@@ -52,8 +57,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, data: newBlessing[0] });
   } catch (error: any) {
     console.error('Error adding blessing:', error);
+    let errorMessage = error.message || 'Internal server error.';
+    if (error.cause) {
+      const causeMessage = error.cause instanceof Error ? error.cause.message : String(error.cause);
+      errorMessage += ` (Cause: ${causeMessage})`;
+    }
     return NextResponse.json(
-      { success: false, error: error.message || 'Internal server error.' },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

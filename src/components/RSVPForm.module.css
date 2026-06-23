@@ -1,5 +1,5 @@
 .formWrapper {
-  max-width: 700px;
+  max-width: 580px;
   margin: 0 auto;
   box-shadow: var(--shadow-medium);
   background-color: #ffffff;
@@ -7,32 +7,32 @@
 
 .formIntro {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .formIntro h3 {
-  font-size: 1.8rem;
+  font-size: 1.45rem;
   color: var(--color-maroon-deep);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .formIntro p {
   color: var(--color-text-light);
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .rsvpForm {
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
 }
 
 .errorBanner {
-  background-color: rgba(229, 57, 53, 0.1);
-  border-left: 4px solid #e53935;
+  background-color: rgba(229, 57, 53, 0.08);
+  border-left: 3px solid #e53935;
   color: #c62828;
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: var(--border-radius-sm);
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
   text-align: left;
 }
 
@@ -45,15 +45,15 @@
   background-color: rgba(253, 251, 247, 0.98);
   box-shadow: var(--shadow-medium), var(--shadow-gold);
   animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 .successIcon {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 1.5rem;
-  background-color: rgba(197, 160, 41, 0.1);
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 1rem;
+  background-color: rgba(207, 168, 50, 0.1);
   border: 2px dashed var(--color-gold-deep);
   border-radius: 50%;
   display: flex;
@@ -64,19 +64,19 @@
 }
 
 .successCard h3 {
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: var(--color-maroon-deep);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .successMessage {
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: var(--color-text-light);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .heartDecoration {
-  margin-top: 2rem;
+  margin-top: 1rem;
   color: var(--color-maroon-rich);
   animation: heartbeat 1.5s infinite;
 }
@@ -84,7 +84,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -95,7 +95,7 @@
 @keyframes scaleUp {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
   to {
     opacity: 1;
@@ -108,14 +108,14 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
   }
 }
 
 @keyframes heartbeat {
   0% { transform: scale(1); }
-  25% { transform: scale(1.1); }
+  25% { transform: scale(1.08); }
   40% { transform: scale(1); }
-  60% { transform: scale(1.15); }
+  60% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }

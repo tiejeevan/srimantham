@@ -152,7 +152,7 @@ export default function AdminDashboard() {
             <Lock size={36} />
           </div>
           <h2>Admin Dashboard</h2>
-          <p>Please enter the dashboard access PIN / Password.</p>
+          <p>Please enter the 6-digit access PIN.</p>
           <div className="divider-traditional"></div>
           
           <form onSubmit={handleLogin} className={styles.loginForm}>
@@ -162,10 +162,17 @@ export default function AdminDashboard() {
               <label className="form-label" htmlFor="admin-pass">Access PIN</label>
               <input
                 type="password"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 id="admin-pass"
-                placeholder="••••••••"
+                placeholder="••••••"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (/^\d{0,6}$/.test(val)) {
+                    setPassword(val);
+                  }
+                }}
                 className="form-input"
                 required
                 disabled={loading}

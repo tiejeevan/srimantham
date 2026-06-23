@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const token = searchParams.get('token');
-    const adminPassword = process.env.ADMIN_PASSWORD || 'shreemantam2026';
+    const adminPassword = process.env.ADMIN_PASSWORD || '087425';
 
     if (token !== adminPassword) {
       return NextResponse.json(
@@ -56,8 +56,13 @@ export async function GET(request: Request) {
     });
   } catch (error: any) {
     console.error('Error fetching admin data:', error);
+    let errorMessage = error.message || 'Internal server error.';
+    if (error.cause) {
+      const causeMessage = error.cause instanceof Error ? error.cause.message : String(error.cause);
+      errorMessage += ` (Cause: ${causeMessage})`;
+    }
     return NextResponse.json(
-      { success: false, error: error.message || 'Internal server error.' },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

@@ -18,29 +18,29 @@
 }
 
 .heroSection {
-  padding-bottom: 3rem;
+  padding-bottom: 1.5rem;
   position: relative;
   overflow: hidden;
 }
 
 .countdownSection {
-  background: linear-gradient(180deg, transparent 0%, rgba(197, 160, 41, 0.05) 50%, transparent 100%);
-  padding: 4rem 1rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(207, 168, 50, 0.05) 50%, transparent 100%);
+  padding: 1.5rem 1rem;
 }
 
 .rsvpSection {
-  padding: 4rem 1rem;
+  padding: 1.5rem 1rem;
   position: relative;
 }
 
 .venueSection {
-  padding: 4rem 1rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(94, 9, 26, 0.02) 50%, transparent 100%);
+  padding: 1.5rem 1rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(76, 0, 13, 0.02) 50%, transparent 100%);
 }
 
 .blessingsSection {
-  padding: 4rem 1rem;
-  margin-bottom: 4rem;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Footer Styling */

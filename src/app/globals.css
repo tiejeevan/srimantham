@@ -2,32 +2,32 @@
 
 :root {
   /* Palette */
-  --color-maroon-deep: #5e091a;
-  --color-maroon-rich: #800020;
-  --color-pink-royal: #c2185b;
-  --color-pink-soft: #f48fb1;
-  --color-gold-deep: #c5a029;
+  --color-maroon-deep: #4c000d;
+  --color-maroon-rich: #6a0014;
+  --color-pink-royal: #ad003d;
+  --color-pink-soft: #f26b8a;
+  --color-gold-deep: #cfa832;
   --color-gold-bright: #ffd700;
-  --color-gold-pale: #f9f1d0;
-  --color-cream-base: #fdfbf7;
-  --color-cream-dark: #faf5eb;
-  --color-saffron: #ff6f00;
+  --color-gold-pale: #fff8dc;
+  --color-cream-base: #fdfaf2;
+  --color-cream-dark: #f5eedc;
+  --color-saffron: #f27b13;
   
   /* Text Hues */
-  --color-text-dark: #2c2523;
-  --color-text-light: #5c4e4b;
-  --color-text-gold: #b38f1b;
+  --color-text-dark: #211c1a;
+  --color-text-light: #524441;
+  --color-text-gold: #b38808;
   --color-text-white: #ffffff;
   
   /* Layout Constants */
-  --max-width: 1200px;
+  --max-width: 1100px;
   --border-radius-sm: 8px;
-  --border-radius-md: 16px;
-  --border-radius-lg: 24px;
-  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-subtle: 0 4px 20px rgba(94, 9, 26, 0.05);
-  --shadow-medium: 0 10px 30px rgba(94, 9, 26, 0.1);
-  --shadow-gold: 0 8px 24px rgba(197, 160, 41, 0.2);
+  --border-radius-md: 14px;
+  --border-radius-lg: 20px;
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-subtle: 0 4px 15px rgba(76, 0, 13, 0.04);
+  --shadow-medium: 0 8px 24px rgba(76, 0, 13, 0.08);
+  --shadow-gold: 0 6px 18px rgba(207, 168, 50, 0.2);
   
   /* Fonts */
   --font-title: 'Cinzel', serif;
@@ -154,18 +154,18 @@ p {
 .border-traditional {
   border: 2px solid var(--color-gold-deep);
   position: relative;
-  padding: 2.5rem;
+  padding: 1.5rem;
   border-radius: var(--border-radius-md);
-  background-color: rgba(253, 251, 247, 0.9);
+  background-color: rgba(253, 251, 247, 0.95);
 }
 
 .border-traditional::after {
   content: '';
   position: absolute;
-  top: 6px;
-  left: 6px;
-  right: 6px;
-  bottom: 6px;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
   border: 1px dashed var(--color-gold-deep);
   border-radius: calc(var(--border-radius-md) - 4px);
   pointer-events: none;
@@ -186,7 +186,7 @@ p {
 .section-container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 5rem 1.5rem;
+  padding: 1.5rem 1.25rem;
 }
 
 /* Glassmorphism Cards */
@@ -288,28 +288,28 @@ p {
 
 /* Form Styles */
 .form-group {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .form-label {
   font-family: var(--font-accent);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-maroon-deep);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   letter-spacing: 0.05em;
   text-align: left;
 }
 
 .form-input, .form-textarea, .form-select {
-  padding: 0.9rem 1.2rem;
-  border: 1px solid rgba(197, 160, 41, 0.4);
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(207, 168, 50, 0.4);
   border-radius: var(--border-radius-sm);
   background-color: rgba(255, 255, 255, 0.9);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--color-text-dark);
   transition: var(--transition-smooth);
 }
@@ -346,8 +346,8 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  border: 1px solid rgba(197, 160, 41, 0.3);
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(207, 168, 50, 0.3);
   border-radius: var(--border-radius-sm);
   background-color: var(--color-cream-base);
   cursor: pointer;
@@ -384,7 +384,7 @@ p {
 
 /* Section Header Decoration */
 .section-header {
-  margin-bottom: 3.5rem;
+  margin-bottom: 1rem;
   text-align: center;
   position: relative;
 }
@@ -392,7 +392,7 @@ p {
 .section-title {
   font-size: 2.2rem;
   color: var(--color-maroon-deep);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   display: inline-block;
   position: relative;
 }
@@ -403,7 +403,7 @@ p {
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.4rem;
 }
 
 .divider-traditional {

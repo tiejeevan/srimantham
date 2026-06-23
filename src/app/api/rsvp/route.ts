@@ -38,8 +38,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, data: newRsvp[0] });
   } catch (error: any) {
     console.error('Error handling RSVP POST:', error);
+    let errorMessage = error.message || 'Internal server error.';
+    if (error.cause) {
+      const causeMessage = error.cause instanceof Error ? error.cause.message : String(error.cause);
+      errorMessage += ` (Cause: ${causeMessage})`;
+    }
     return NextResponse.json(
-      { success: false, error: error.message || 'Internal server error.' },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }
