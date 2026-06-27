@@ -5,6 +5,84 @@ import { Calendar, Clock, MapPin, X, Navigation, Phone, CalendarPlus, ChevronDow
 import styles from './InvitationCard.module.css';
 import RSVPForm from './RSVPForm';
 
+function useTransparentTrimmedImage(src: string, threshold: number = 245) {
+  const [processedSrc, setProcessedSrc] = useState<string>('');
+
+  useEffect(() => {
+    if (!src) return;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = src;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      ctx.drawImage(img, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+
+      let minX = canvas.width;
+      let maxX = 0;
+      let minY = canvas.height;
+      let maxY = 0;
+
+      // Convert near-white pixels to transparent and find content bounding box
+      for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+          const idx = (y * canvas.width + x) * 4;
+          const r = data[idx];
+          const g = data[idx + 1];
+          const b = data[idx + 2];
+          
+          if (r >= threshold && g >= threshold && b >= threshold) {
+            data[idx + 3] = 0; // set alpha to transparent
+          } else {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+
+      if (maxX < minX || maxY < minY) {
+        setProcessedSrc(canvas.toDataURL('image/png'));
+        return;
+      }
+
+      // Add padding
+      minX = Math.max(0, minX - 2);
+      minY = Math.max(0, minY - 2);
+      maxX = Math.min(canvas.width - 1, maxX + 2);
+      maxY = Math.min(canvas.height - 1, maxY + 2);
+
+      const trimWidth = maxX - minX + 1;
+      const trimHeight = maxY - minY + 1;
+
+      const trimCanvas = document.createElement('canvas');
+      trimCanvas.width = trimWidth;
+      trimCanvas.height = trimHeight;
+      const trimCtx = trimCanvas.getContext('2d');
+      if (!trimCtx) return;
+
+      trimCtx.drawImage(
+        canvas,
+        minX, minY, trimWidth, trimHeight,
+        0, 0, trimWidth, trimHeight
+      );
+
+      setProcessedSrc(trimCanvas.toDataURL('image/png'));
+    };
+  }, [src, threshold]);
+
+  return processedSrc;
+}
+
 const MiniCountdown = ({ targetDate }: { targetDate: string }) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, isCompleted: false });
 
@@ -65,6 +143,8 @@ export default function InvitationCard() {
   const [eventDateStr, setEventDateStr] = useState('2026-07-03T10:30:00');
   const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
   const [ganeshaStage, setGaneshaStage] = useState(0); // 0 = original, 1 = enlarged, 2 = hidden verse
+
+  const coupleSrc = useTransparentTrimmedImage('/couple_blessing_asset.png') || '/couple_blessing_asset.png';
 
   const handleGaneshaDoubleClick = () => {
     setGaneshaStage((prev) => (prev + 1) % 3);
@@ -134,6 +214,11 @@ export default function InvitationCard() {
   return (
     <div className={styles.cardContainer}>
       <div className={`${styles.invitationCard} border-traditional`}>
+
+        {/* Background Couple Illustration */}
+        <div className={styles.bgCoupleIllustration}>
+          <img src={coupleSrc} alt="Couple Blessing" className={styles.bgCoupleImg} />
+        </div>
 
         {/* Cute Baby Ganesha Image */}
         <div className={`${styles.ganeshaHeader} ${(ganeshaStage === 1 || ganeshaStage === 2) ? styles.ganeshaEnlarged : ''}`}>

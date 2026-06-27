@@ -545,6 +545,25 @@
   }
 }
 
+.bgCoupleIllustration {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 440px;
+  opacity: 0.22;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bgCoupleImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
 @media (max-width: 600px) {
   .mainTitle {
     font-size: 2.2rem;
@@ -557,6 +576,10 @@
   .invitationVerse {
     font-size: 0.9rem;
     max-width: 95%;
+  }
+
+  .bgCoupleIllustration {
+    max-width: 340px;
   }
 
   .rsvpTriggerBtn {
