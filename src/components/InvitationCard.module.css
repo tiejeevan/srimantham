@@ -32,25 +32,27 @@
 }
 
 .ganeshaImg {
-  width: 85px;
-  height: 85px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  border: 2px solid var(--color-gold-deep);
-  box-shadow: var(--shadow-gold), 0 3px 8px rgba(76, 0, 13, 0.12);
+  border: 2.5px solid var(--color-gold-deep);
+  box-shadow: var(--shadow-gold), 0 5px 15px rgba(76, 0, 13, 0.12);
   object-fit: cover;
   transition: var(--transition-smooth);
 }
 
 .ganeshaImg:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 12px rgba(207, 168, 50, 0.35);
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(207, 168, 50, 0.35);
 }
 
 .ganeshaEnlarged .ganeshaImg {
-  width: 170px;
-  height: 170px;
+  width: 240px;
+  height: 240px;
+  max-width: 85%;
+  aspect-ratio: 1;
   border-width: 3px;
-  box-shadow: 0 10px 30px rgba(207, 168, 50, 0.45);
+  box-shadow: 0 15px 35px rgba(207, 168, 50, 0.5);
 }
 
 .auspiciousLine {

@@ -136,7 +136,7 @@ export default function InvitationCard() {
       <div className={`${styles.invitationCard} border-traditional`}>
 
         {/* Cute Baby Ganesha Image */}
-        <div className={`${styles.ganeshaHeader} ${ganeshaStage === 1 ? styles.ganeshaEnlarged : ''}`}>
+        <div className={`${styles.ganeshaHeader} ${(ganeshaStage === 1 || ganeshaStage === 2) ? styles.ganeshaEnlarged : ''}`}>
           <img 
             src="/baby-ganesha.png" 
             alt="Lord Ganesha" 
