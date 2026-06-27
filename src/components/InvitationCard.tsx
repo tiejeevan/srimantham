@@ -36,7 +36,7 @@ function useTransparentTrimmedImage(src: string, threshold: number = 245) {
           const r = data[idx];
           const g = data[idx + 1];
           const b = data[idx + 2];
-          
+
           if (r >= threshold && g >= threshold && b >= threshold) {
             data[idx + 3] = 0; // set alpha to transparent
           } else {
@@ -203,7 +203,7 @@ export default function InvitationCard() {
   };
 
   const dateObj = parseEventDate(eventDateStr);
-  
+
   const formattedDay = isNaN(dateObj.getTime())
     ? 'Friday, July 3'
     : dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
@@ -234,7 +234,7 @@ export default function InvitationCard() {
       <div className={`${styles.invitationCard} border-traditional`}>
 
         {/* Background Couple Illustration */}
-        <div 
+        <div
           className={styles.bgCoupleIllustration}
           style={{
             width: `${coupleBgSize}%`,
@@ -247,9 +247,9 @@ export default function InvitationCard() {
 
         {/* Cute Baby Ganesha Image */}
         <div className={`${styles.ganeshaHeader} ${(ganeshaStage === 1 || ganeshaStage === 2) ? styles.ganeshaEnlarged : ''}`}>
-          <img 
-            src="/baby-ganesha.png" 
-            alt="Lord Ganesha" 
+          <img
+            src="/baby-ganesha.png"
+            alt="Lord Ganesha"
             className={styles.ganeshaImg}
             onDoubleClick={handleGaneshaDoubleClick}
             title="Double click me! ❈"
@@ -263,14 +263,14 @@ export default function InvitationCard() {
         {/* Invitation Text */}
         <div className={styles.invitationContent}>
           <span className={styles.subTitle}>With love and blessings, we invite you to the</span>
-          <h1 
+          <h1
             className={styles.mainTitle}
             onDoubleClick={handleTitleDoubleClick}
             title="Double click to switch language / భాష మార్చడానికి డబుల్ క్లిక్ చేయండి! ❈"
           >
             {titleLang === 'EN' ? 'Seemantham' : 'సీమంతం'}
           </h1>
-          
+
           <div className={styles.coupleNames}>
             <h2>Jeevan & Vibhaswi</h2>
           </div>
@@ -282,8 +282,8 @@ export default function InvitationCard() {
           )}
 
           <div className={styles.rsvpTriggerContainer}>
-            <button 
-              onClick={() => setActiveModal('rsvp')} 
+            <button
+              onClick={() => setActiveModal('rsvp')}
               className={styles.rsvpTriggerBtn}
             >
               Join Celebration
@@ -292,8 +292,8 @@ export default function InvitationCard() {
 
           {/* Interactive Info Bar (Pill Buttons) */}
           <div className={styles.infoBar}>
-            <button 
-              onClick={() => setActiveModal('day')} 
+            <button
+              onClick={() => setActiveModal('day')}
               className={styles.infoBtn}
               title="Click for day details"
             >
@@ -301,8 +301,8 @@ export default function InvitationCard() {
               <span className={styles.infoText}>{formattedDay}</span>
               <ChevronDown className={styles.chevronIcon} size={14} />
             </button>
-            <button 
-              onClick={() => setActiveModal('muhurtham')} 
+            <button
+              onClick={() => setActiveModal('muhurtham')}
               className={styles.infoBtn}
               title="Click for muhurtham & countdown"
             >
@@ -310,8 +310,8 @@ export default function InvitationCard() {
               <span className={styles.infoText}>{formattedTime}</span>
               <ChevronDown className={styles.chevronIcon} size={14} />
             </button>
-            <button 
-              onClick={() => setActiveModal('location')} 
+            <button
+              onClick={() => setActiveModal('location')}
               className={styles.infoBtn}
               title="Click to view venue on map"
             >
@@ -333,9 +333,9 @@ export default function InvitationCard() {
       {activeModal && (
         <div className={styles.modalOverlay} onClick={() => setActiveModal(null)}>
           <div className={`${styles.modalContent} ${activeModal === 'rsvp' ? styles.rsvpModalContent : ''}`} onClick={(e) => e.stopPropagation()}>
-            <button 
-              className={styles.modalClose} 
-              onClick={() => setActiveModal(null)} 
+            <button
+              className={styles.modalClose}
+              onClick={() => setActiveModal(null)}
               aria-label="Close modal"
             >
               <X size={20} />
@@ -356,10 +356,10 @@ export default function InvitationCard() {
                     <strong>Date:</strong> <span>{formattedFullDate}</span>
                   </div>
                 </div>
-                <a 
+                <a
                   href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jeevan+%26+Vibhaswi%27s+Seemantham&dates=${calendarDates}&details=Traditional+Baby+Shower+Ceremony+%28Seemantham%29+for+Vibhaswi+and+Jeevan.+Lunch+will+be+served.&location=6267+Stumph+Rd,+Cleveland,+OH+44130`}
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-gold"
                   style={{ width: '100%', marginTop: '1.25rem', gap: '8px' }}
                 >
@@ -394,8 +394,8 @@ export default function InvitationCard() {
                 </div>
                 <h3>The Venue</h3>
                 <div className={styles.modalDivider}></div>
-                <h4 className={styles.venueName}>Royal Hall</h4>
-                <p className={styles.venueAddress}>6267 Stumph Rd, Cleveland, OH 44130</p>
+                <h4 className={styles.venueName}>Home</h4>
+                <p className={styles.venueAddress}>6267 Stumph Rd, Apt 10 A Cleveland, OH 44130</p>
                 <div className={styles.contactRow}>
                   <Phone size={14} className={styles.phoneIcon} />
                   <span>Jeevan & Vibhaswi: +1 (314) 755-8899</span>
@@ -411,10 +411,10 @@ export default function InvitationCard() {
                     title="Modal Location Map"
                   ></iframe>
                 </div>
-                <a 
-                  href="https://www.google.com/maps/search/?api=1&query=6267+Stumph+Rd,+Cleveland,+OH+44130" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=6267+Stumph+Rd,+Cleveland,+OH+44130"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-gold"
                   style={{ width: '100%', marginTop: '1.25rem', gap: '8px' }}
                 >
