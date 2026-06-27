@@ -3,6 +3,8 @@ import { db, rsvps, settings } from '@/db';
 import { desc } from 'drizzle-orm';
 
 export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET(request: Request) {
   try {

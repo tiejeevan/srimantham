@@ -144,6 +144,10 @@ export default function InvitationCard() {
   const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
   const [ganeshaStage, setGaneshaStage] = useState(0); // 0 = original, 1 = enlarged, 2 = hidden verse
 
+  const [coupleBgSize, setCoupleBgSize] = useState('95');
+  const [coupleBgOpacity, setCoupleBgOpacity] = useState('22');
+  const [coupleBgBottom, setCoupleBgBottom] = useState('0');
+
   const coupleSrc = useTransparentTrimmedImage('/couple_blessing_asset.png') || '/couple_blessing_asset.png';
 
   const handleGaneshaDoubleClick = () => {
@@ -151,7 +155,7 @@ export default function InvitationCard() {
   };
 
   useEffect(() => {
-    fetch('/api/settings')
+    fetch('/api/settings?t=' + Date.now(), { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -160,6 +164,15 @@ export default function InvitationCard() {
           }
           if (data.settings?.event_message) {
             setEventMessage(data.settings.event_message);
+          }
+          if (data.settings?.couple_bg_size) {
+            setCoupleBgSize(data.settings.couple_bg_size);
+          }
+          if (data.settings?.couple_bg_opacity) {
+            setCoupleBgOpacity(data.settings.couple_bg_opacity);
+          }
+          if (data.settings?.couple_bg_bottom) {
+            setCoupleBgBottom(data.settings.couple_bg_bottom);
           }
         }
       })
@@ -216,7 +229,14 @@ export default function InvitationCard() {
       <div className={`${styles.invitationCard} border-traditional`}>
 
         {/* Background Couple Illustration */}
-        <div className={styles.bgCoupleIllustration}>
+        <div 
+          className={styles.bgCoupleIllustration}
+          style={{
+            width: `${coupleBgSize}%`,
+            opacity: parseFloat(coupleBgOpacity) / 100,
+            bottom: `${coupleBgBottom}px`
+          }}
+        >
           <img src={coupleSrc} alt="Couple Blessing" className={styles.bgCoupleImg} />
         </div>
 

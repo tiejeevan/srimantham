@@ -48,6 +48,14 @@ export default function AdminDashboard() {
   const [tempEventDate, setTempEventDate] = useState('2026-07-03T10:30:00');
   const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
   const [tempEventMessage, setTempEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
+  
+  const [coupleBgSize, setCoupleBgSize] = useState('95');
+  const [tempBgSize, setTempBgSize] = useState('95');
+  const [coupleBgOpacity, setCoupleBgOpacity] = useState('22');
+  const [tempBgOpacity, setTempBgOpacity] = useState('22');
+  const [coupleBgBottom, setCoupleBgBottom] = useState('0');
+  const [tempBgBottom, setTempBgBottom] = useState('0');
+
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [settingsSuccess, setSettingsSuccess] = useState(false);
   const [settingsError, setSettingsError] = useState('');
@@ -96,6 +104,18 @@ export default function AdminDashboard() {
             setEventMessage(json.settings.event_message);
             setTempEventMessage(json.settings.event_message);
           }
+          if (json.settings.couple_bg_size) {
+            setCoupleBgSize(json.settings.couple_bg_size);
+            setTempBgSize(json.settings.couple_bg_size);
+          }
+          if (json.settings.couple_bg_opacity) {
+            setCoupleBgOpacity(json.settings.couple_bg_opacity);
+            setTempBgOpacity(json.settings.couple_bg_opacity);
+          }
+          if (json.settings.couple_bg_bottom) {
+            setCoupleBgBottom(json.settings.couple_bg_bottom);
+            setTempBgBottom(json.settings.couple_bg_bottom);
+          }
         }
       } else {
         setAuthError(json.error || 'Invalid password.');
@@ -122,6 +142,9 @@ export default function AdminDashboard() {
           settings: {
             event_date: tempEventDate,
             event_message: tempEventMessage,
+            couple_bg_size: tempBgSize,
+            couple_bg_opacity: tempBgOpacity,
+            couple_bg_bottom: tempBgBottom,
           }
         }),
       });
@@ -130,6 +153,9 @@ export default function AdminDashboard() {
       if (res.ok && json.success) {
         setEventDate(tempEventDate);
         setEventMessage(tempEventMessage);
+        setCoupleBgSize(tempBgSize);
+        setCoupleBgOpacity(tempBgOpacity);
+        setCoupleBgBottom(tempBgBottom);
         setSettingsSuccess(true);
         setTimeout(() => setSettingsSuccess(false), 3000);
       } else {
@@ -331,44 +357,133 @@ export default function AdminDashboard() {
               Configure the date and time of the Shreemantam ceremony. This dynamically updates the invitation details, countdown timer, and Google Calendar links throughout the entire application.
             </p>
           </div>
-          <form onSubmit={handleSaveSettings} className={styles.configForm}>
-            {settingsError && <div className={styles.settingsError}>{settingsError}</div>}
-            {settingsSuccess && <div className={styles.settingsSuccess}>Ceremony settings saved successfully!</div>}
-            
-            <div className="form-group" style={{ marginBottom: '1.25rem' }}>
-              <label className="form-label">Ceremony Date & Time</label>
-              <input
-                type="datetime-local"
-                value={tempEventDate}
-                onChange={(e) => setTempEventDate(e.target.value)}
-                className="form-input"
-                required
-                disabled={settingsLoading}
-              />
-            </div>
+          <div className={styles.configGrid}>
+            <form onSubmit={handleSaveSettings} className={styles.configForm}>
+              {settingsError && <div className={styles.settingsError}>{settingsError}</div>}
+              {settingsSuccess && <div className={styles.settingsSuccess}>Ceremony settings saved successfully!</div>}
+              
+              <div className="form-group" style={{ marginBottom: '1.25rem' }}>
+                <label className="form-label">Ceremony Date & Time</label>
+                <input
+                  type="datetime-local"
+                  value={tempEventDate}
+                  onChange={(e) => setTempEventDate(e.target.value)}
+                  className="form-input"
+                  required
+                  disabled={settingsLoading}
+                />
+              </div>
 
-            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-              <label className="form-label">Invitation Verse / Inline Message</label>
-              <textarea
-                value={tempEventMessage}
-                onChange={(e) => setTempEventMessage(e.target.value)}
-                className="form-textarea"
-                rows={3}
-                placeholder="Enter the custom invitation verse..."
-                required
-                disabled={settingsLoading}
-              />
-            </div>
+              <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                <label className="form-label">Invitation Verse / Inline Message</label>
+                <textarea
+                  value={tempEventMessage}
+                  onChange={(e) => setTempEventMessage(e.target.value)}
+                  className="form-textarea"
+                  rows={3}
+                  placeholder="Enter the custom invitation verse..."
+                  required
+                  disabled={settingsLoading}
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="btn-gold"
-              style={{ padding: '0.6rem 2rem', display: 'inline-flex', alignItems: 'center', width: 'auto' }}
-              disabled={settingsLoading}
-            >
-              {settingsLoading ? 'Saving...' : 'Save Configuration'}
-            </button>
-          </form>
+              {/* Background Illustration Configuration */}
+              <div style={{ margin: '1.5rem 0 1rem', borderTop: '1px dashed rgba(207, 168, 50, 0.3)', paddingTop: '1.25rem' }}>
+                <h4 style={{ fontFamily: 'var(--font-accent)', color: 'var(--color-maroon-deep)', fontSize: '1.15rem', marginBottom: '0.4rem', textAlign: 'left' }}>
+                  Background Illustration Controls
+                </h4>
+                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-light)', marginBottom: '1rem', textAlign: 'left', lineHeight: '1.4' }}>
+                  Fine-tune the size, opacity, and vertical offset position of the couple blessing background image.
+                </p>
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '1.25rem' }}>
+                <label className="form-label" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Illustration Size</span>
+                  <strong>{tempBgSize}%</strong>
+                </label>
+                <input
+                  type="range"
+                  min="50"
+                  max="150"
+                  value={tempBgSize}
+                  onChange={(e) => setTempBgSize(e.target.value)}
+                  style={{ width: '100%', accentColor: 'var(--color-maroon-deep)', cursor: 'pointer' }}
+                  disabled={settingsLoading}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '1.25rem' }}>
+                <label className="form-label" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Illustration Opacity / Visibility</span>
+                  <strong>{tempBgOpacity}%</strong>
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={tempBgOpacity}
+                  onChange={(e) => setTempBgOpacity(e.target.value)}
+                  style={{ width: '100%', accentColor: 'var(--color-maroon-deep)', cursor: 'pointer' }}
+                  disabled={settingsLoading}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '1.75rem' }}>
+                <label className="form-label" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Vertical Position Offset</span>
+                  <strong>{tempBgBottom}px</strong>
+                </label>
+                <input
+                  type="range"
+                  min="-150"
+                  max="150"
+                  value={tempBgBottom}
+                  onChange={(e) => setTempBgBottom(e.target.value)}
+                  style={{ width: '100%', accentColor: 'var(--color-maroon-deep)', cursor: 'pointer' }}
+                  disabled={settingsLoading}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn-gold"
+                style={{ padding: '0.6rem 2rem', display: 'inline-flex', alignItems: 'center', width: 'auto' }}
+                disabled={settingsLoading}
+              >
+                {settingsLoading ? 'Saving...' : 'Save Configuration'}
+              </button>
+            </form>
+
+            {/* Interactive Live Card Preview */}
+            <div className={styles.miniPreviewCard}>
+              <h4 className={styles.previewTitle}>Live Invitation Card Preview</h4>
+              <div className={styles.miniCardFrame}>
+                {/* Background image reflecting live values */}
+                <div 
+                  className={styles.miniCardBgCouple}
+                  style={{
+                    width: `${tempBgSize}%`,
+                    opacity: parseFloat(tempBgOpacity) / 100,
+                    bottom: `${Math.round(parseFloat(tempBgBottom) * 0.52)}px`
+                  }}
+                >
+                  <img src="/couple_blessing_asset.png" alt="Couple" className={styles.miniCardBgCoupleImg} />
+                </div>
+
+                <div className={styles.miniCardContent}>
+                  <div className={styles.miniGaneshaHeader}>
+                    <img src="/baby-ganesha.png" alt="Ganesha" className={styles.miniGaneshaImg} />
+                  </div>
+                  <p className={styles.miniCardShloka}>|| Sri Ganeshaya Namaha ||</p>
+                  <h2 className={styles.miniCardTitle}>Shreemantam</h2>
+                  <h3 className={styles.miniCardNames}>Jeevan & Vibhaswi</h3>
+                  <p className={styles.miniCardVerse}>{tempEventMessage ? `"${tempEventMessage}"` : ''}</p>
+                  <div className={styles.miniCardButton}>Join Celebration</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

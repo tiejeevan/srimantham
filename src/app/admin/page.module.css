@@ -487,3 +487,152 @@
   font-size: 0.9rem;
   text-align: left;
 }
+
+/* live card preview styles */
+.configGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .configGrid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+.miniPreviewCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-cream-base);
+  border: 1px dashed var(--color-gold-deep);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem 1rem;
+}
+
+.previewTitle {
+  font-family: var(--font-accent);
+  color: var(--color-maroon-deep);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  width: 100%;
+}
+
+.miniCardFrame {
+  width: 100%;
+  max-width: 320px;
+  height: 480px;
+  background: radial-gradient(circle, #ffffff 0%, var(--color-cream-dark) 100%);
+  border: 2px solid var(--color-gold-deep);
+  border-radius: var(--border-radius-md);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(76, 0, 13, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1rem;
+}
+
+.miniCardBgCouple {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  transition: all 0.1s ease-out;
+}
+
+.miniCardBgCoupleImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.miniCardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.miniGaneshaHeader {
+  margin: 0.25rem auto 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.miniGaneshaImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gold-deep);
+  object-fit: cover;
+}
+
+.miniCardShloka {
+  font-family: var(--font-accent);
+  color: var(--color-gold-deep);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.miniCardTitle {
+  font-size: 1.5rem !important;
+  color: var(--color-maroon-deep);
+  line-height: 1.1;
+  margin-bottom: 0.1rem;
+  text-align: center;
+}
+
+.miniCardNames {
+  font-family: var(--font-title);
+  font-size: 1.1rem !important;
+  color: var(--color-maroon-rich);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.miniCardVerse {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--color-text-light);
+  max-width: 90%;
+  margin: 0.25rem auto 0.5rem;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+}
+
+.miniCardButton {
+  margin-top: auto;
+  padding: 0.45rem 1.25rem;
+  background: linear-gradient(135deg, var(--color-gold-deep), #e6b822);
+  color: var(--color-maroon-deep);
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-subtle);
+  pointer-events: none;
+  text-align: center;
+  border: none;
+}
+
