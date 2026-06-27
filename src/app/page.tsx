@@ -2,15 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import InvitationCard from '@/components/InvitationCard';
-import BackgroundMusic from '@/components/BackgroundMusic';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
     <main className={`${styles.main} bg-mandala`}>
-      {/* Background audio track */}
-      <BackgroundMusic />
-
       {/* Hero Invitation Section */}
       <section className={styles.heroSection}>
         <InvitationCard />
