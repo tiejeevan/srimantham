@@ -5,19 +5,19 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Jeevan & Vibhaswi's Shreemantam / సీమంతం",
-  description: "Join us in celebrating the auspicious Shreemantam (Baby Shower) ceremony of Vibhaswi & Jeevan. Details, Muhurtham, and RSVP inside.",
+  title: "Jeevan & Vibhaswi's Baby Shower Ceremony",
+  description: "Join us in celebrating the auspicious Seemantham (Baby Shower) ceremony of Vibhaswi & Jeevan. Details, Muhurtham, and RSVP inside.",
   openGraph: {
-    title: "Jeevan & Vibhaswi's Shreemantam / సీమంతం",
-    description: "Join us in celebrating the auspicious Shreemantam (Baby Shower) ceremony of Vibhaswi & Jeevan.",
+    title: "Jeevan & Vibhaswi's Baby Shower Ceremony",
+    description: "Join us in celebrating the auspicious Seemantham (Baby Shower) ceremony of Vibhaswi & Jeevan.",
     url: "https://bbyshwr.vercel.app/",
-    siteName: "Shreemantam Invitation",
+    siteName: "Baby Shower Invitation",
     images: [
       {
-        url: "https://bbyshwr.vercel.app/golden_ganesha.png",
+        url: "https://bbyshwr.vercel.app/baby-ganesha.png",
         width: 1024,
         height: 1024,
-        alt: "Auspicious Golden Ganesha",
+        alt: "Baby Ganesha",
       },
     ],
     locale: "en_US",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Jeevan & Vibhaswi's Shreemantam / సీమంతం",
-    description: "Join us in celebrating the auspicious Shreemantam (Baby Shower) ceremony of Vibhaswi & Jeevan.",
-    images: ["https://bbyshwr.vercel.app/golden_ganesha.png"],
+    title: "Jeevan & Vibhaswi's Baby Shower Ceremony",
+    description: "Join us in celebrating the auspicious Seemantham (Baby Shower) ceremony of Vibhaswi & Jeevan.",
+    images: ["https://bbyshwr.vercel.app/baby-ganesha.png"],
   },
 };
 

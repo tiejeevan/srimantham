@@ -193,7 +193,7 @@ export default function AdminDashboard() {
     
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `shreemantam_rsvps_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `seemantham_rsvps_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
@@ -275,7 +275,7 @@ export default function AdminDashboard() {
       {/* Header bar */}
       <header className={styles.header}>
         <div className={styles.headerTitle}>
-          <h2>Shreemantam Admin Portal</h2>
+          <h2>Seemantham Admin Portal</h2>
           <p>Real-time RSVP analytics and attendee registry.</p>
         </div>
         <div className={styles.headerActions}>
@@ -354,7 +354,7 @@ export default function AdminDashboard() {
           <div className={styles.configHeader}>
             <h3>Ceremony Schedule Settings</h3>
             <p>
-              Configure the date and time of the Shreemantam ceremony. This dynamically updates the invitation details, countdown timer, and Google Calendar links throughout the entire application.
+              Configure the date and time of the Seemantham ceremony. This dynamically updates the invitation details, countdown timer, and Google Calendar links throughout the entire application.
             </p>
           </div>
           <div className={styles.configGrid}>
@@ -476,7 +476,7 @@ export default function AdminDashboard() {
                     <img src="/baby-ganesha.png" alt="Ganesha" className={styles.miniGaneshaImg} />
                   </div>
                   <p className={styles.miniCardShloka}>|| Sri Ganeshaya Namaha ||</p>
-                  <h2 className={styles.miniCardTitle}>Shreemantam</h2>
+                  <h2 className={styles.miniCardTitle}>Seemantham</h2>
                   <h3 className={styles.miniCardNames}>Jeevan & Vibhaswi</h3>
                   <p className={styles.miniCardVerse}>{tempEventMessage ? `"${tempEventMessage}"` : ''}</p>
                   <div className={styles.miniCardButton}>Join Celebration</div>

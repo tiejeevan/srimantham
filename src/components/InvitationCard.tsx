@@ -268,7 +268,7 @@ export default function InvitationCard() {
             onDoubleClick={handleTitleDoubleClick}
             title="Double click to switch language / భాష మార్చడానికి డబుల్ క్లిక్ చేయండి! ❈"
           >
-            {titleLang === 'EN' ? 'Shreemantam' : 'సీమంతం'}
+            {titleLang === 'EN' ? 'Seemantham' : 'సీమంతం'}
           </h1>
           
           <div className={styles.coupleNames}>
@@ -357,7 +357,7 @@ export default function InvitationCard() {
                   </div>
                 </div>
                 <a 
-                  href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jeevan+%26+Vibhaswi%27s+Shreemantam&dates=${calendarDates}&details=Traditional+Baby+Shower+Ceremony+%28Shreemantam%29+for+Vibhaswi+and+Jeevan.+Lunch+will+be+served.&location=6267+Stumph+Rd,+Cleveland,+OH+44130`}
+                  href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jeevan+%26+Vibhaswi%27s+Seemantham&dates=${calendarDates}&details=Traditional+Baby+Shower+Ceremony+%28Seemantham%29+for+Vibhaswi+and+Jeevan.+Lunch+will+be+served.&location=6267+Stumph+Rd,+Cleveland,+OH+44130`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn-gold"
