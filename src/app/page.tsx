@@ -19,9 +19,6 @@ export default function Home() {
 
       {/* Hero Invitation Section */}
       <section className={styles.heroSection}>
-        <div className={styles.topBanner}>
-          <span>❈ SWAGATHAM ❈</span>
-        </div>
         <InvitationCard />
       </section>
 
