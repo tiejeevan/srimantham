@@ -143,6 +143,11 @@ export default function InvitationCard() {
   const [eventDateStr, setEventDateStr] = useState('2026-07-03T10:30:00');
   const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
   const [ganeshaStage, setGaneshaStage] = useState(0); // 0 = original, 1 = enlarged, 2 = hidden verse
+  const [titleLang, setTitleLang] = useState<'EN' | 'TE'>('EN');
+
+  const handleTitleDoubleClick = () => {
+    setTitleLang((prev) => (prev === 'EN' ? 'TE' : 'EN'));
+  };
 
   const [coupleBgSize, setCoupleBgSize] = useState('95');
   const [coupleBgOpacity, setCoupleBgOpacity] = useState('22');
@@ -258,7 +263,13 @@ export default function InvitationCard() {
         {/* Invitation Text */}
         <div className={styles.invitationContent}>
           <span className={styles.subTitle}>With love and blessings, we invite you to the</span>
-          <h1 className={styles.mainTitle}>Shreemantam</h1>
+          <h1 
+            className={styles.mainTitle}
+            onDoubleClick={handleTitleDoubleClick}
+            title="Double click to switch language / భాష మార్చడానికి డబుల్ క్లిక్ చేయండి! ❈"
+          >
+            {titleLang === 'EN' ? 'Shreemantam' : 'సీమంతం'}
+          </h1>
           
           <div className={styles.coupleNames}>
             <h2>Jeevan & Vibhaswi</h2>

@@ -3,6 +3,17 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.main input,
+.main textarea,
+.main select {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
 }
 
 .topBanner {

@@ -87,6 +87,14 @@
   line-height: 1.1;
   margin-bottom: 0.1rem;
   text-shadow: 1px 1px 1px rgba(207, 168, 50, 0.15);
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-smooth);
+}
+
+.mainTitle:hover {
+  transform: scale(1.02);
+  text-shadow: 1px 2px 4px rgba(207, 168, 50, 0.25);
 }
 
 .ceremonySubtitle {

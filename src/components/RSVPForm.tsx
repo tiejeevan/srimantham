@@ -28,21 +28,7 @@ export default function RSVPForm({ isModal = false }: { isModal?: boolean }) {
     }));
   };
 
-  const handleStatusChange = (isAttending: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      status: isAttending,
-      // If declining, set guests count to 0 automatically
-      guestsCount: isAttending ? 1 : 0,
-    }));
-  };
 
-  const handleFoodChange = (pref: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      foodPreference: pref,
-    }));
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -190,78 +176,33 @@ export default function RSVPForm({ isModal = false }: { isModal?: boolean }) {
           </div>
         </div>
 
-        {/* Attendance status selection */}
+        {/* Number of guests */}
         <div className="form-group">
-          <label className="form-label">Are you attending? *</label>
-          <div className="radio-group">
-            <div 
-              className={`radio-card ${formData.status ? 'selected' : ''}`}
-              onClick={() => !loading && handleStatusChange(true)}
-            >
-              <span>Joyfully Accepting</span>
-            </div>
-            <div 
-              className={`radio-card ${!formData.status ? 'selected' : ''}`}
-              onClick={() => !loading && handleStatusChange(false)}
-            >
-              <span>Regretfully Declining</span>
-            </div>
-          </div>
+          <label className="form-label" htmlFor="guestsCount">Number of Guests *</label>
+          <select
+            id="guestsCount"
+            name="guestsCount"
+            value={formData.guestsCount}
+            onChange={handleChange}
+            className="form-select"
+            disabled={loading}
+          >
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <option key={n} value={n}>
+                {n} {n === 1 ? 'Guest' : 'Guests'}
+              </option>
+            ))}
+          </select>
         </div>
-
-        {/* Attending Specific Fields */}
-        {formData.status && (
-          <div className={styles.expandableFields}>
-            <div className="form-row">
-              {/* Number of guests */}
-              <div className="form-group">
-                <label className="form-label" htmlFor="guestsCount">Number of Guests *</label>
-                <select
-                  id="guestsCount"
-                  name="guestsCount"
-                  value={formData.guestsCount}
-                  onChange={handleChange}
-                  className="form-select"
-                  disabled={loading}
-                >
-                  {[1, 2, 3, 4, 5, 6].map((n) => (
-                    <option key={n} value={n}>
-                      {n} {n === 1 ? 'Guest' : 'Guests'}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Food preference */}
-              <div className="form-group">
-                <label className="form-label">Food Preference *</label>
-                <div className="radio-group">
-                  <div 
-                    className={`radio-card ${formData.foodPreference === 'veg' ? 'selected' : ''}`}
-                    onClick={() => !loading && handleFoodChange('veg')}
-                  >
-                    <span>Pure Vegetarian</span>
-                  </div>
-                  <div 
-                    className={`radio-card ${formData.foodPreference === 'non-veg' ? 'selected' : ''}`}
-                    onClick={() => !loading && handleFoodChange('non-veg')}
-                  >
-                    <span>Non-Vegetarian</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Notes/Wishes */}
         <div className="form-group">
-          <label className="form-label" htmlFor="notes">Notes / Special Requests</label>
+          <label className="form-label" htmlFor="notes">Special notes</label>
           <textarea
             id="notes"
             name="notes"
             rows={3}
-            placeholder="Any allergies, dietary restrictions, or notes..."
+            placeholder="any special message to add"
             value={formData.notes}
             onChange={handleChange}
             className="form-textarea"
