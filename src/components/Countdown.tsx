@@ -56,7 +56,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
   if (!isMounted) {
     return (
       <div className={styles.countdownLoader}>
-        <span className="animate-spin-slow">❈</span> Loading Countdown...
+        <span className={styles.spinner}>❈</span> Loading...
       </div>
     );
   }
@@ -65,31 +65,33 @@ export default function Countdown({ targetDate }: CountdownProps) {
     return (
       <div className={styles.celebrationMessage}>
         <h3>The Auspicious Event Has Begun!</h3>
-        <p>Thank you for joining and blessing the couple.</p>
       </div>
     );
   }
 
   return (
-    <div className={styles.countdownContainer}>
-      <div className={styles.timeBox}>
-        <span className={styles.timeNumber}>{String(timeLeft.days).padStart(2, '0')}</span>
-        <span className={styles.timeLabel}>Days</span>
-      </div>
-      <div className={styles.timeDivider}>❈</div>
-      <div className={styles.timeBox}>
-        <span className={styles.timeNumber}>{String(timeLeft.hours).padStart(2, '0')}</span>
-        <span className={styles.timeLabel}>Hours</span>
-      </div>
-      <div className={styles.timeDivider}>❈</div>
-      <div className={styles.timeBox}>
-        <span className={styles.timeNumber}>{String(timeLeft.minutes).padStart(2, '0')}</span>
-        <span className={styles.timeLabel}>Mins</span>
-      </div>
-      <div className={styles.timeDivider}>❈</div>
-      <div className={styles.timeBox}>
-        <span className={styles.timeNumber}>{String(timeLeft.seconds).padStart(2, '0')}</span>
-        <span className={styles.timeLabel}>Secs</span>
+    <div className={styles.countdownWrapper}>
+      <span className={styles.wrapperLabel}>Auspicious Muhurtham Countdown</span>
+      <div className={styles.countdownContainer}>
+        <div className={styles.timeBox}>
+          <span className={styles.timeNumber}>{String(timeLeft.days).padStart(2, '0')}</span>
+          <span className={styles.timeLabel}>Days</span>
+        </div>
+        <div className={styles.timeDivider}>:</div>
+        <div className={styles.timeBox}>
+          <span className={styles.timeNumber}>{String(timeLeft.hours).padStart(2, '0')}</span>
+          <span className={styles.timeLabel}>Hours</span>
+        </div>
+        <div className={styles.timeDivider}>:</div>
+        <div className={styles.timeBox}>
+          <span className={styles.timeNumber}>{String(timeLeft.minutes).padStart(2, '0')}</span>
+          <span className={styles.timeLabel}>Mins</span>
+        </div>
+        <div className={styles.timeDivider}>:</div>
+        <div className={styles.timeBox}>
+          <span className={styles.timeNumber}>{String(timeLeft.seconds).padStart(2, '0')}</span>
+          <span className={styles.timeLabel}>Secs</span>
+        </div>
       </div>
     </div>
   );

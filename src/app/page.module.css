@@ -25,22 +25,7 @@
 
 .countdownSection {
   background: linear-gradient(180deg, transparent 0%, rgba(207, 168, 50, 0.05) 50%, transparent 100%);
-  padding: 1.5rem 1rem;
-}
-
-.rsvpSection {
-  padding: 1.5rem 1rem;
-  position: relative;
-}
-
-.venueSection {
-  padding: 1.5rem 1rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(76, 0, 13, 0.02) 50%, transparent 100%);
-}
-
-.blessingsSection {
-  padding: 1.5rem 1rem;
-  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
 }
 
 /* Footer Styling */
@@ -107,8 +92,8 @@
     padding-bottom: 1.5rem;
   }
   
-  .countdownSection, .rsvpSection, .venueSection, .blessingsSection {
-    padding: 3rem 1rem;
+  .countdownSection {
+    padding: 0.75rem 1rem;
   }
   
   .footerGreeting {

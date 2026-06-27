@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 import { Send, UserCheck, Heart } from 'lucide-react';
 import styles from './RSVPForm.module.css';
 
-export default function RSVPForm() {
+export default function RSVPForm({ isModal = false }: { isModal?: boolean }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -110,7 +110,7 @@ export default function RSVPForm() {
 
   if (submitted) {
     return (
-      <div className={`${styles.successCard} border-traditional`}>
+      <div className={isModal ? styles.modalSuccessCard : `${styles.successCard} border-traditional`}>
         <div className={styles.successIcon}>
           <UserCheck size={48} />
         </div>
@@ -134,7 +134,7 @@ export default function RSVPForm() {
   }
 
   return (
-    <div className={`${styles.formWrapper} border-traditional`}>
+    <div className={isModal ? styles.modalFormWrapper : `${styles.formWrapper} border-traditional`}>
       <div className={styles.formIntro}>
         <h3>Will you join our celebration?</h3>
         <p>Please share your response below before June 20, 2026 to help us make the best arrangements.</p>

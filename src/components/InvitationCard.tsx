@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, X, Navigation, Phone, CalendarPlus } from 'lucide-react';
 import styles from './InvitationCard.module.css';
+import RSVPForm from './RSVPForm';
 
 const MiniCountdown = () => {
   const targetDate = '2026-07-03T10:30:00';
@@ -61,7 +62,7 @@ const MiniCountdown = () => {
 };
 
 export default function InvitationCard() {
-  const [activeModal, setActiveModal] = useState<'day' | 'muhurtham' | 'location' | null>(null);
+  const [activeModal, setActiveModal] = useState<'day' | 'muhurtham' | 'location' | 'rsvp' | null>(null);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -104,6 +105,15 @@ export default function InvitationCard() {
             "A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby."
           </p>
 
+          <div className={styles.rsvpTriggerContainer}>
+            <button 
+              onClick={() => setActiveModal('rsvp')} 
+              className={styles.rsvpTriggerBtn}
+            >
+              Join Celebration
+            </button>
+          </div>
+
           {/* Interactive Info Bar (Single Line) */}
           <div className={styles.infoBar}>
             <button 
@@ -145,7 +155,7 @@ export default function InvitationCard() {
       {/* Modal Popup Overlays */}
       {activeModal && (
         <div className={styles.modalOverlay} onClick={() => setActiveModal(null)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div className={`${styles.modalContent} ${activeModal === 'rsvp' ? styles.rsvpModalContent : ''}`} onClick={(e) => e.stopPropagation()}>
             <button 
               className={styles.modalClose} 
               onClick={() => setActiveModal(null)} 
@@ -167,9 +177,6 @@ export default function InvitationCard() {
                 <div className={styles.modalMetaInfo}>
                   <div className={styles.metaRow}>
                     <strong>Date:</strong> <span>Friday, July 3, 2026</span>
-                  </div>
-                  <div className={styles.metaRow}>
-                    <strong>Dress Code:</strong> <span>Traditional / Indian Ethnic wear</span>
                   </div>
                 </div>
                 <a 
@@ -214,13 +221,13 @@ export default function InvitationCard() {
                 <p className={styles.venueAddress}>6267 Stumph Rd, Cleveland, OH 44130</p>
                 <div className={styles.contactRow}>
                   <Phone size={14} className={styles.phoneIcon} />
-                  <span>+1 (314) 755-8899</span>
+                  <span>Jeevan & Vibhaswi: +1 (314) 755-8899</span>
                 </div>
                 <div className={styles.modalMapContainer}>
                   <iframe
                     src="https://maps.google.com/maps?q=6267%20Stumph%20Rd,%20Cleveland,%20OH%2044130&t=&z=15&ie=UTF8&iwloc=&output=embed"
                     width="100%"
-                    height="160"
+                    height="200"
                     style={{ border: 0 }}
                     allowFullScreen={false}
                     loading="lazy"
@@ -237,6 +244,12 @@ export default function InvitationCard() {
                   <Navigation size={18} />
                   Navigate via Google Maps
                 </a>
+              </div>
+            )}
+
+            {activeModal === 'rsvp' && (
+              <div className={styles.modalInner} style={{ textAlign: 'left', width: '100%' }}>
+                <RSVPForm isModal={true} />
               </div>
             )}
           </div>

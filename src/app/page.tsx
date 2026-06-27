@@ -3,9 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import InvitationCard from '@/components/InvitationCard';
 import Countdown from '@/components/Countdown';
-import RSVPForm from '@/components/RSVPForm';
-import WishesWall from '@/components/WishesWall';
-import VenueMap from '@/components/VenueMap';
 import BackgroundMusic from '@/components/BackgroundMusic';
 import styles from './page.module.css';
 
@@ -24,48 +21,7 @@ export default function Home() {
 
       {/* Countdown Timer Section */}
       <section className={styles.countdownSection}>
-        <div className="section-header">
-          <span className="section-subtitle">Auspicious Countdown</span>
-          <h2 className="section-title">Celebrating Soon</h2>
-          <div className="divider-traditional"></div>
-        </div>
         <Countdown targetDate={targetEventDate} />
-      </section>
-
-      {/* RSVP Section */}
-      <section id="rsvp" className={styles.rsvpSection}>
-        <div className="section-header">
-          <span className="section-subtitle">Confirm Attendance</span>
-          <h2 className="section-title">Be Our Guest</h2>
-          <div className="divider-traditional"></div>
-        </div>
-        <div className="section-container">
-          <RSVPForm />
-        </div>
-      </section>
-
-      {/* Venue & Location Section */}
-      <section id="venue" className={styles.venueSection}>
-        <div className="section-header">
-          <span className="section-subtitle">Event Location</span>
-          <h2 className="section-title">The Venue</h2>
-          <div className="divider-traditional"></div>
-        </div>
-        <div className="section-container">
-          <VenueMap />
-        </div>
-      </section>
-
-      {/* Guest Blessings Board Section */}
-      <section id="blessings" className={styles.blessingsSection}>
-        <div className="section-header">
-          <span className="section-subtitle">Wishes & Prayers</span>
-          <h2 className="section-title">Blessings Wall</h2>
-          <div className="divider-traditional"></div>
-        </div>
-        <div className="section-container">
-          <WishesWall />
-        </div>
       </section>
 
       {/* Auspicious Footer */}
