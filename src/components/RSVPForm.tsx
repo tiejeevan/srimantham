@@ -100,19 +100,8 @@ export default function RSVPForm({ isModal = false }: { isModal?: boolean }) {
         <div className={styles.successIcon}>
           <UserCheck size={48} />
         </div>
-        <h3>Dhanyavaadhagal! (Thank You!)</h3>
-        <p className={styles.successMessage}>
-          {formData.status ? (
-            <>
-              Your RSVP has been saved. We are thrilled to welcome you (<strong>{formData.guestsCount} {formData.guestsCount === 1 ? 'guest' : 'guests'}</strong>) to witness the auspicious Shreemantam celebrations!
-            </>
-          ) : (
-            <>
-              We have received your response. Though you won't be able to make it, we deeply appreciate your warm thoughts and wishes!
-            </>
-          )}
-        </p>
-        <div className={styles.heartDecoration}>
+        <h3>Thank You!</h3>
+        <div className={styles.heartDecoration} style={{ marginTop: '1rem' }}>
           <Heart size={20} fill="var(--color-maroon-rich)" />
         </div>
       </div>
