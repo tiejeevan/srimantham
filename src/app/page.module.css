@@ -67,14 +67,7 @@
   font-size: 1.6rem;
   color: var(--color-gold-bright);
   font-weight: 600;
-  margin-bottom: 3rem;
-}
-
-.copyright {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1.5rem;
-  font-size: 0.85rem;
-  color: rgba(253, 251, 247, 0.6);
+  margin-bottom: 1.5rem;
 }
 
 @keyframes spinSlow {
@@ -84,14 +77,25 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
   }
   
+  .footer {
+    padding: 2.25rem 1.25rem 1.5rem;
+  }
+
+  .footerMandala {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
   .footerGreeting {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
 
   .footerHosts {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }
 }

@@ -46,6 +46,8 @@ export default function AdminDashboard() {
   const [isMounted, setIsMounted] = useState(false);
   const [eventDate, setEventDate] = useState('2026-07-03T10:30:00');
   const [tempEventDate, setTempEventDate] = useState('2026-07-03T10:30:00');
+  const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
+  const [tempEventMessage, setTempEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [settingsSuccess, setSettingsSuccess] = useState(false);
   const [settingsError, setSettingsError] = useState('');
@@ -85,9 +87,15 @@ export default function AdminDashboard() {
         sessionStorage.setItem('admin_token', pwd);
         setStats(json.stats);
         setRsvps(json.rsvps);
-        if (json.settings && json.settings.event_date) {
-          setEventDate(json.settings.event_date);
-          setTempEventDate(json.settings.event_date);
+        if (json.settings) {
+          if (json.settings.event_date) {
+            setEventDate(json.settings.event_date);
+            setTempEventDate(json.settings.event_date);
+          }
+          if (json.settings.event_message) {
+            setEventMessage(json.settings.event_message);
+            setTempEventMessage(json.settings.event_message);
+          }
         }
       } else {
         setAuthError(json.error || 'Invalid password.');
@@ -110,12 +118,18 @@ export default function AdminDashboard() {
       const res = await fetch(`/api/admin?token=${encodeURIComponent(token || '')}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key: 'event_date', value: tempEventDate }),
+        body: JSON.stringify({
+          settings: {
+            event_date: tempEventDate,
+            event_message: tempEventMessage,
+          }
+        }),
       });
 
       const json = await res.json();
       if (res.ok && json.success) {
         setEventDate(tempEventDate);
+        setEventMessage(tempEventMessage);
         setSettingsSuccess(true);
         setTimeout(() => setSettingsSuccess(false), 3000);
       } else {
@@ -319,28 +333,41 @@ export default function AdminDashboard() {
           </div>
           <form onSubmit={handleSaveSettings} className={styles.configForm}>
             {settingsError && <div className={styles.settingsError}>{settingsError}</div>}
-            {settingsSuccess && <div className={styles.settingsSuccess}>Ceremony schedule saved successfully!</div>}
-            <div className={styles.configRow}>
-              <div className="form-group" style={{ flex: 1, minWidth: '240px', marginBottom: 0 }}>
-                <label className="form-label">Ceremony Date & Time</label>
-                <input
-                  type="datetime-local"
-                  value={tempEventDate}
-                  onChange={(e) => setTempEventDate(e.target.value)}
-                  className="form-input"
-                  required
-                  disabled={settingsLoading}
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn-gold"
-                style={{ height: '42px', padding: '0 1.5rem', display: 'inline-flex', alignItems: 'center' }}
+            {settingsSuccess && <div className={styles.settingsSuccess}>Ceremony settings saved successfully!</div>}
+            
+            <div className="form-group" style={{ marginBottom: '1.25rem' }}>
+              <label className="form-label">Ceremony Date & Time</label>
+              <input
+                type="datetime-local"
+                value={tempEventDate}
+                onChange={(e) => setTempEventDate(e.target.value)}
+                className="form-input"
+                required
                 disabled={settingsLoading}
-              >
-                {settingsLoading ? 'Saving...' : 'Save Schedule'}
-              </button>
+              />
             </div>
+
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label className="form-label">Invitation Verse / Inline Message</label>
+              <textarea
+                value={tempEventMessage}
+                onChange={(e) => setTempEventMessage(e.target.value)}
+                className="form-textarea"
+                rows={3}
+                placeholder="Enter the custom invitation verse..."
+                required
+                disabled={settingsLoading}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn-gold"
+              style={{ padding: '0.6rem 2rem', display: 'inline-flex', alignItems: 'center', width: 'auto' }}
+              disabled={settingsLoading}
+            >
+              {settingsLoading ? 'Saving...' : 'Save Configuration'}
+            </button>
           </form>
         </div>
       </section>

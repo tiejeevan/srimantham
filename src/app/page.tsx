@@ -21,9 +21,6 @@ export default function Home() {
         <div className={styles.footerMandala}>❈</div>
         <p className={styles.footerGreeting}>We look forward to welcoming you!</p>
         <p className={styles.footerHosts}>— Jeevan & Vibhaswi's Family</p>
-        <div className={styles.copyright}>
-          <p>© 2026 Shreemantam Invitation. Crafted with love.</p>
-        </div>
       </footer>
     </main>
   );

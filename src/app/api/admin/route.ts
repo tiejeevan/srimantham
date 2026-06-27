@@ -90,6 +90,22 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
+
+    // Support bulk updates
+    if (body.settings && typeof body.settings === 'object') {
+      for (const [key, value] of Object.entries(body.settings)) {
+        await db
+          .insert(settings)
+          .values({ key, value: String(value) })
+          .onConflictDoUpdate({
+            target: settings.key,
+            set: { value: String(value), updatedAt: new Date() },
+          });
+      }
+      return NextResponse.json({ success: true });
+    }
+
+    // Support single update fallback
     const { key, value } = body;
 
     if (!key || typeof key !== 'string') {

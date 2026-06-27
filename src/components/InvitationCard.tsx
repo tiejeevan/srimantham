@@ -63,13 +63,24 @@ const MiniCountdown = ({ targetDate }: { targetDate: string }) => {
 export default function InvitationCard() {
   const [activeModal, setActiveModal] = useState<'day' | 'muhurtham' | 'location' | 'rsvp' | null>(null);
   const [eventDateStr, setEventDateStr] = useState('2026-07-03T10:30:00');
+  const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
+  const [ganeshaStage, setGaneshaStage] = useState(0); // 0 = original, 1 = enlarged, 2 = hidden verse
+
+  const handleGaneshaDoubleClick = () => {
+    setGaneshaStage((prev) => (prev + 1) % 3);
+  };
 
   useEffect(() => {
     fetch('/api/settings')
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && data.settings?.event_date) {
-          setEventDateStr(data.settings.event_date);
+        if (data.success) {
+          if (data.settings?.event_date) {
+            setEventDateStr(data.settings.event_date);
+          }
+          if (data.settings?.event_message) {
+            setEventMessage(data.settings.event_message);
+          }
         }
       })
       .catch((err) => console.error('Error fetching event settings:', err));
@@ -125,11 +136,14 @@ export default function InvitationCard() {
       <div className={`${styles.invitationCard} border-traditional`}>
 
         {/* Cute Baby Ganesha Image */}
-        <div className={styles.ganeshaHeader}>
+        <div className={`${styles.ganeshaHeader} ${ganeshaStage === 1 ? styles.ganeshaEnlarged : ''}`}>
           <img 
             src="/baby-ganesha.png" 
             alt="Lord Ganesha" 
             className={styles.ganeshaImg}
+            onDoubleClick={handleGaneshaDoubleClick}
+            title="Double click me! ❈"
+            style={{ cursor: 'pointer' }}
           />
         </div>
 
@@ -145,9 +159,11 @@ export default function InvitationCard() {
             <h2>Jeevan & Vibhaswi</h2>
           </div>
 
-          <p className={styles.invitationVerse}>
-            "A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby."
-          </p>
+          {ganeshaStage !== 2 && (
+            <p className={styles.invitationVerse}>
+              "{eventMessage}"
+            </p>
+          )}
 
           <div className={styles.rsvpTriggerContainer}>
             <button 
@@ -165,27 +181,27 @@ export default function InvitationCard() {
               className={styles.infoBtn}
               title="Click for day details"
             >
-              <Calendar className={styles.infoIcon} size={14} />
-              <span>{formattedDay}</span>
-              <ChevronDown className={styles.chevronIcon} size={12} />
+              <Calendar className={styles.infoIcon} size={16} />
+              <span className={styles.infoText}>{formattedDay}</span>
+              <ChevronDown className={styles.chevronIcon} size={14} />
             </button>
             <button 
               onClick={() => setActiveModal('muhurtham')} 
               className={styles.infoBtn}
               title="Click for muhurtham & countdown"
             >
-              <Clock className={styles.infoIcon} size={14} />
-              <span>{formattedTime}</span>
-              <ChevronDown className={styles.chevronIcon} size={12} />
+              <Clock className={styles.infoIcon} size={16} />
+              <span className={styles.infoText}>{formattedTime}</span>
+              <ChevronDown className={styles.chevronIcon} size={14} />
             </button>
             <button 
               onClick={() => setActiveModal('location')} 
               className={styles.infoBtn}
               title="Click to view venue on map"
             >
-              <MapPin className={styles.infoIcon} size={14} />
-              <span>Cleveland, OH Venue</span>
-              <ChevronDown className={styles.chevronIcon} size={12} />
+              <MapPin className={styles.infoIcon} size={16} />
+              <span className={styles.infoText}>Cleveland, OH Venue</span>
+              <ChevronDown className={styles.chevronIcon} size={14} />
             </button>
           </div>
         </div>
