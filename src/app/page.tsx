@@ -2,13 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import InvitationCard from '@/components/InvitationCard';
-import Countdown from '@/components/Countdown';
 import BackgroundMusic from '@/components/BackgroundMusic';
 import styles from './page.module.css';
 
 export default function Home() {
-  const targetEventDate = '2026-07-03T10:30:00'; // Target date for Shreemantam
-
   return (
     <main className={`${styles.main} bg-mandala`}>
       {/* Background audio track */}
@@ -17,11 +14,6 @@ export default function Home() {
       {/* Hero Invitation Section */}
       <section className={styles.heroSection}>
         <InvitationCard />
-      </section>
-
-      {/* Countdown Timer Section */}
-      <section className={styles.countdownSection}>
-        <Countdown targetDate={targetEventDate} />
       </section>
 
       {/* Auspicious Footer */}

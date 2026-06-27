@@ -19,3 +19,10 @@ export const blessings = pgTable('blessings', {
   isApproved: boolean('is_approved').default(true).notNull(), // for simple moderation
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+export const settings = pgTable('settings', {
+  key: varchar('key', { length: 256 }).primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+

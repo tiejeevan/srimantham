@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db, rsvps } from '@/db';
+import { db, rsvps, settings } from '@/db';
 import { desc } from 'drizzle-orm';
 
 export const runtime = 'edge';
@@ -43,6 +43,13 @@ export async function GET(request: Request) {
       }
     });
 
+    // Fetch settings
+    const allSettings = await db.select().from(settings);
+    const settingsMap = allSettings.reduce((acc, curr) => {
+      acc[curr.key] = curr.value;
+      return acc;
+    }, {} as Record<string, string>);
+
     return NextResponse.json({
       success: true,
       stats: {
@@ -53,6 +60,7 @@ export async function GET(request: Request) {
         declinedCount,
       },
       rsvps: allRsvps,
+      settings: settingsMap,
     });
   } catch (error: any) {
     console.error('Error fetching admin data:', error);
@@ -63,6 +71,48 @@ export async function GET(request: Request) {
     }
     return NextResponse.json(
       { success: false, error: errorMessage },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const token = searchParams.get('token');
+    const adminPassword = process.env.ADMIN_PASSWORD || '087425';
+
+    if (token !== adminPassword) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized.' },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    const { key, value } = body;
+
+    if (!key || typeof key !== 'string') {
+      return NextResponse.json(
+        { success: false, error: 'Invalid setting key.' },
+        { status: 400 }
+      );
+    }
+
+    // Upsert setting
+    await db
+      .insert(settings)
+      .values({ key, value })
+      .onConflictDoUpdate({
+        target: settings.key,
+        set: { value, updatedAt: new Date() },
+      });
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error('Error updating settings:', error);
+    return NextResponse.json(
+      { success: false, error: error.message || 'Internal server error.' },
       { status: 500 }
     );
   }

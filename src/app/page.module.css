@@ -23,11 +23,6 @@
   overflow: hidden;
 }
 
-.countdownSection {
-  background: linear-gradient(180deg, transparent 0%, rgba(207, 168, 50, 0.05) 50%, transparent 100%);
-  padding: 0.5rem 1rem;
-}
-
 /* Footer Styling */
 .footer {
   background-color: var(--color-maroon-deep);
@@ -90,10 +85,6 @@
 @media (max-width: 768px) {
   .heroSection {
     padding-bottom: 1.5rem;
-  }
-  
-  .countdownSection {
-    padding: 0.75rem 1rem;
   }
   
   .footerGreeting {

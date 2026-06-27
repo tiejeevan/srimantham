@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, X, Navigation, Phone, CalendarPlus } from 'lucide-react';
+import { Calendar, Clock, MapPin, X, Navigation, Phone, CalendarPlus, ChevronDown } from 'lucide-react';
 import styles from './InvitationCard.module.css';
 import RSVPForm from './RSVPForm';
 
-const MiniCountdown = () => {
-  const targetDate = '2026-07-03T10:30:00';
+const MiniCountdown = ({ targetDate }: { targetDate: string }) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, isCompleted: false });
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const MiniCountdown = () => {
       setTimeLeft(calculate());
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [targetDate]);
 
   if (timeLeft.isCompleted) {
     return <div className={styles.miniCelebration}>The ceremony has begun!</div>;
@@ -63,6 +62,18 @@ const MiniCountdown = () => {
 
 export default function InvitationCard() {
   const [activeModal, setActiveModal] = useState<'day' | 'muhurtham' | 'location' | 'rsvp' | null>(null);
+  const [eventDateStr, setEventDateStr] = useState('2026-07-03T10:30:00');
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.settings?.event_date) {
+          setEventDateStr(data.settings.event_date);
+        }
+      })
+      .catch((err) => console.error('Error fetching event settings:', err));
+  }, []);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -75,6 +86,39 @@ export default function InvitationCard() {
       document.body.style.overflow = 'unset';
     };
   }, [activeModal]);
+
+  // Date Parsing & Formatting Helpers
+  const parseEventDate = (dateStr: string) => {
+    const formatted = dateStr.replace(/-/g, '/').replace('T', ' ');
+    return new Date(formatted);
+  };
+
+  const dateObj = parseEventDate(eventDateStr);
+  
+  const formattedDay = isNaN(dateObj.getTime())
+    ? 'Friday, July 3'
+    : dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+  const formattedFullDate = isNaN(dateObj.getTime())
+    ? 'Friday, July 3, 2026'
+    : dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+  const formattedTime = isNaN(dateObj.getTime())
+    ? '10:30 AM Onwards'
+    : dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) + ' Onwards';
+
+  const getCalendarDates = (dateStr: string) => {
+    const dateObj = parseEventDate(dateStr);
+    if (isNaN(dateObj.getTime())) {
+      return '20260703T143000Z/20260703T183000Z';
+    }
+    const startDate = new Date(dateObj);
+    const endDate = new Date(dateObj.getTime() + 4 * 60 * 60 * 1000); // 4 hours duration
+    const toUTCString = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    return `${toUTCString(startDate)}/${toUTCString(endDate)}`;
+  };
+
+  const calendarDates = getCalendarDates(eventDateStr);
 
   return (
     <div className={styles.cardContainer}>
@@ -114,33 +158,34 @@ export default function InvitationCard() {
             </button>
           </div>
 
-          {/* Interactive Info Bar (Single Line) */}
+          {/* Interactive Info Bar (Pill Buttons) */}
           <div className={styles.infoBar}>
             <button 
               onClick={() => setActiveModal('day')} 
               className={styles.infoBtn}
               title="Click for day details"
             >
-              <Calendar className={styles.infoIcon} size={15} />
-              <span>Friday, July 3</span>
+              <Calendar className={styles.infoIcon} size={14} />
+              <span>{formattedDay}</span>
+              <ChevronDown className={styles.chevronIcon} size={12} />
             </button>
-            <span className={styles.barDivider}>•</span>
             <button 
               onClick={() => setActiveModal('muhurtham')} 
               className={styles.infoBtn}
               title="Click for muhurtham & countdown"
             >
-              <Clock className={styles.infoIcon} size={15} />
-              <span>10:30 AM Onwards</span>
+              <Clock className={styles.infoIcon} size={14} />
+              <span>{formattedTime}</span>
+              <ChevronDown className={styles.chevronIcon} size={12} />
             </button>
-            <span className={styles.barDivider}>•</span>
             <button 
               onClick={() => setActiveModal('location')} 
               className={styles.infoBtn}
               title="Click to view venue on map"
             >
-              <MapPin className={styles.infoIcon} size={15} />
-              <span>Cleveland, OH</span>
+              <MapPin className={styles.infoIcon} size={14} />
+              <span>Cleveland, OH Venue</span>
+              <ChevronDown className={styles.chevronIcon} size={12} />
             </button>
           </div>
         </div>
@@ -169,18 +214,18 @@ export default function InvitationCard() {
                 <div className={styles.modalHeaderIcon}>
                   <Calendar size={32} />
                 </div>
-                <h3>Friday, July 3, 2026</h3>
+                <h3>{formattedFullDate}</h3>
                 <div className={styles.modalDivider}></div>
                 <p className={styles.modalDesc}>
                   We are delighted to invite you to share in our joy on this beautiful day.
                 </p>
                 <div className={styles.modalMetaInfo}>
                   <div className={styles.metaRow}>
-                    <strong>Date:</strong> <span>Friday, July 3, 2026</span>
+                    <strong>Date:</strong> <span>{formattedFullDate}</span>
                   </div>
                 </div>
                 <a 
-                  href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jeevan+%26+Vibhaswi%27s+Shreemantam&dates=20260703T143000Z/20260703T183000Z&details=Traditional+Baby+Shower+Ceremony+%28Shreemantam%29+for+Vibhaswi+and+Jeevan.+Lunch+will+be+served.&location=6267+Stumph+Rd,+Cleveland,+OH+44130" 
+                  href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jeevan+%26+Vibhaswi%27s+Shreemantam&dates=${calendarDates}&details=Traditional+Baby+Shower+Ceremony+%28Shreemantam%29+for+Vibhaswi+and+Jeevan.+Lunch+will+be+served.&location=6267+Stumph+Rd,+Cleveland,+OH+44130`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn-gold"
@@ -199,14 +244,14 @@ export default function InvitationCard() {
                 </div>
                 <h3>Auspicious Muhurtham</h3>
                 <div className={styles.modalDivider}></div>
-                <p className={styles.muhurthamTime}>10:30 AM Onwards</p>
+                <p className={styles.muhurthamTime}>{formattedTime}</p>
                 <div className={styles.lunchDetails}>
                   <strong>Lunch Details:</strong>
                   <p>Traditional South Indian vegetarian lunch buffet will be served starting at 12:30 PM.</p>
                 </div>
                 <div className={styles.modalDivider}></div>
                 <span className={styles.countdownTitle}>Auspicious Countdown:</span>
-                <MiniCountdown />
+                <MiniCountdown targetDate={eventDateStr} />
               </div>
             )}
 

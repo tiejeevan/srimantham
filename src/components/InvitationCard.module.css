@@ -115,46 +115,52 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
   width: 100%;
-  margin-top: 0.75rem;
-  background-color: rgba(106, 0, 20, 0.02);
-  padding: 0.6rem 0.5rem;
-  border-radius: var(--border-radius-sm);
-  border: 1px dashed rgba(207, 168, 50, 0.2);
+  margin-top: 0.8rem;
+  padding: 0.4rem;
 }
 
 .infoBtn {
-  background: none;
-  border: none;
+  background: rgba(253, 251, 247, 0.7);
+  border: 1px solid rgba(207, 168, 50, 0.35);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   font-family: var(--font-accent);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-maroon-rich);
   cursor: pointer;
-  padding: 0.35rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.45rem 0.8rem;
+  border-radius: 20px;
   transition: var(--transition-smooth);
+  box-shadow: 0 2px 5px rgba(76, 0, 13, 0.03);
 }
 
 .infoBtn:hover {
-  background-color: rgba(207, 168, 50, 0.12);
+  background-color: rgba(207, 168, 50, 0.15);
+  border-color: var(--color-gold-deep);
   color: var(--color-maroon-deep);
   transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(207, 168, 50, 0.15);
 }
 
 .infoIcon {
   color: var(--color-gold-deep);
+  flex-shrink: 0;
 }
 
-.barDivider {
+.chevronIcon {
   color: var(--color-gold-deep);
   opacity: 0.6;
-  font-size: 1rem;
-  user-select: none;
+  margin-left: 2px;
+  transition: var(--transition-smooth);
+}
+
+.infoBtn:hover .chevronIcon {
+  opacity: 1;
+  transform: translateY(1px);
 }
 
 /* Modal Overlay and Content Styles */

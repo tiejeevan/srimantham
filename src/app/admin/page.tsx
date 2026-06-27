@@ -44,6 +44,11 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'attending' | 'veg' | 'non-veg' | 'declined'>('all');
   const [isMounted, setIsMounted] = useState(false);
+  const [eventDate, setEventDate] = useState('2026-07-03T10:30:00');
+  const [tempEventDate, setTempEventDate] = useState('2026-07-03T10:30:00');
+  const [settingsLoading, setSettingsLoading] = useState(false);
+  const [settingsSuccess, setSettingsSuccess] = useState(false);
+  const [settingsError, setSettingsError] = useState('');
 
   useEffect(() => {
     setIsMounted(true);
@@ -80,6 +85,10 @@ export default function AdminDashboard() {
         sessionStorage.setItem('admin_token', pwd);
         setStats(json.stats);
         setRsvps(json.rsvps);
+        if (json.settings && json.settings.event_date) {
+          setEventDate(json.settings.event_date);
+          setTempEventDate(json.settings.event_date);
+        }
       } else {
         setAuthError(json.error || 'Invalid password.');
         sessionStorage.removeItem('admin_token');
@@ -88,6 +97,34 @@ export default function AdminDashboard() {
       setAuthError('Connection failed. Please check backend connection.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSettingsError('');
+    setSettingsSuccess(false);
+    setSettingsLoading(true);
+
+    try {
+      const res = await fetch(`/api/admin?token=${encodeURIComponent(token || '')}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: 'event_date', value: tempEventDate }),
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setEventDate(tempEventDate);
+        setSettingsSuccess(true);
+        setTimeout(() => setSettingsSuccess(false), 3000);
+      } else {
+        setSettingsError(json.error || 'Failed to save configuration.');
+      }
+    } catch (err) {
+      setSettingsError('Failed to save configuration due to a connection error.');
+    } finally {
+      setSettingsLoading(false);
     }
   };
 
@@ -270,6 +307,43 @@ export default function AdminDashboard() {
           </div>
         </section>
       )}
+
+      {/* Event Configuration Section */}
+      <section className={styles.configSection}>
+        <div className={styles.configCard}>
+          <div className={styles.configHeader}>
+            <h3>Ceremony Schedule Settings</h3>
+            <p>
+              Configure the date and time of the Shreemantam ceremony. This dynamically updates the invitation details, countdown timer, and Google Calendar links throughout the entire application.
+            </p>
+          </div>
+          <form onSubmit={handleSaveSettings} className={styles.configForm}>
+            {settingsError && <div className={styles.settingsError}>{settingsError}</div>}
+            {settingsSuccess && <div className={styles.settingsSuccess}>Ceremony schedule saved successfully!</div>}
+            <div className={styles.configRow}>
+              <div className="form-group" style={{ flex: 1, minWidth: '240px', marginBottom: 0 }}>
+                <label className="form-label">Ceremony Date & Time</label>
+                <input
+                  type="datetime-local"
+                  value={tempEventDate}
+                  onChange={(e) => setTempEventDate(e.target.value)}
+                  className="form-input"
+                  required
+                  disabled={settingsLoading}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn-gold"
+                style={{ height: '42px', padding: '0 1.5rem', display: 'inline-flex', alignItems: 'center' }}
+                disabled={settingsLoading}
+              >
+                {settingsLoading ? 'Saving...' : 'Save Schedule'}
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
 
       {/* Registry Controls Box */}
       <section className={styles.registrySection}>
