@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 import { Send, UserCheck, Heart } from 'lucide-react';
 import styles from './RSVPForm.module.css';
 
-export default function RSVPForm({ isModal = false }: { isModal?: boolean }) {
+export default function RSVPForm({ isModal = false, onRsvpDone }: { isModal?: boolean; onRsvpDone?: (name: string) => void }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -56,6 +56,9 @@ export default function RSVPForm({ isModal = false }: { isModal?: boolean }) {
 
       setSubmitted(true);
       setLoading(false);
+
+      // Persist RSVP to localStorage so the nudge won't show again
+      onRsvpDone?.(formData.name.trim());
 
       // Trigger Confetti!
       if (formData.status) {

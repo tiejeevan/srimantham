@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, integer, boolean, timestamp, text } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, integer, boolean, timestamp, text, date, bigint } from 'drizzle-orm/pg-core';
 
 export const rsvps = pgTable('rsvps', {
   id: serial('id').primaryKey(),
@@ -26,3 +26,10 @@ export const settings = pgTable('settings', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+export const pageViews = pgTable('page_views', {
+  date: date('date').primaryKey(),
+  totalVisits: integer('total_visits').notNull().default(0),
+  returningVisits: integer('returning_visits').notNull().default(0),
+  totalTimeSpentSeconds: bigint('total_time_spent_seconds', { mode: 'number' }).notNull().default(0),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});

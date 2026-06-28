@@ -605,3 +605,195 @@
     font-size: 0.8rem;
   }
 }
+
+/* ── RSVP Nudge ─────────────────────────────────── */
+.rsvpNudge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(197, 160, 41, 0.15) 0%, rgba(255, 165, 0, 0.12) 100%);
+  border: 1px solid rgba(197, 160, 41, 0.45);
+  border-radius: 10px;
+  padding: 0.55rem 0.85rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-maroon-rich);
+  font-family: var(--font-primary);
+  line-height: 1.4;
+  animation: nudgeSlideIn 0.4s ease;
+  text-align: left;
+}
+
+.nudgeIcon {
+  flex-shrink: 0;
+  color: var(--color-gold-primary);
+}
+
+.nudgeDismiss {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--color-maroon-rich);
+  cursor: pointer;
+  opacity: 0.55;
+  padding: 0 2px;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.nudgeDismiss:hover {
+  opacity: 1;
+}
+
+@keyframes nudgeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── RSVP Confirmed Card ────────────────────────────── */
+.rsvpConfirmed {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(197, 160, 41, 0.13) 0%, rgba(76, 0, 13, 0.07) 100%);
+  border: 1.5px solid rgba(197, 160, 41, 0.5);
+  border-radius: 14px;
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  animation: confirmedPopIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rsvpConfirmedOmImg {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.rsvpConfirmedText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rsvpConfirmedText strong {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  color: var(--color-maroon-rich);
+  font-weight: 700;
+}
+
+.rsvpConfirmedText span {
+  font-family: var(--font-primary);
+  font-size: 0.78rem;
+  color: var(--color-maroon-rich);
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+@keyframes confirmedPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Copyable Address & Contact Accessibility ── */
+.copyableAddressBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(197, 160, 41, 0.05);
+  border: 1px dashed rgba(197, 160, 41, 0.35);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.copyableAddressBlock .venueAddress {
+  margin: 0 !important;
+  text-align: left;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--color-maroon-rich);
+}
+
+.modalCopyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: white;
+  border: 1px solid rgba(197, 160, 41, 0.5);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-maroon-rich);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-primary);
+  flex-shrink: 0;
+}
+
+.modalCopyBtn:hover {
+  background: var(--color-gold-primary);
+  color: white;
+  border-color: var(--color-gold-primary);
+}
+
+.phoneLabel {
+  font-size: 0.88rem;
+  color: var(--color-maroon-rich);
+  opacity: 0.8;
+  margin-right: 4px;
+}
+
+.phoneLink {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-gold-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.phoneLink:hover {
+  color: var(--color-maroon-rich);
+  text-decoration: underline;
+}
+
+.modalCopyBtnMini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  color: var(--color-maroon-rich);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+.modalCopyBtnMini:hover {
+  opacity: 1;
+  background: rgba(197, 160, 41, 0.1);
+}
+
+.modalCopyBtnMini:active {
+  transform: scale(0.92);
+}
+

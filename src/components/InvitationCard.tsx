@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, X, Navigation, Phone, CalendarPlus, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Calendar, Clock, MapPin, X, Navigation, Phone, CalendarPlus, ChevronDown, Bell, Copy, Check } from 'lucide-react';
 import styles from './InvitationCard.module.css';
 import RSVPForm from './RSVPForm';
+import { useVisitorMemory } from '@/hooks/useVisitorMemory';
 
 function useTransparentTrimmedImage(src: string, threshold: number = 245) {
   const [processedSrc, setProcessedSrc] = useState<string>('');
@@ -145,6 +146,45 @@ export default function InvitationCard() {
   const [ganeshaStage, setGaneshaStage] = useState(0); // 0 = original, 1 = enlarged, 2 = hidden verse
   const [titleLang, setTitleLang] = useState<'EN' | 'TE'>('EN');
 
+  // Visitor memory & RSVP nudge
+  const { visitorData, markRsvpDone } = useVisitorMemory();
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [showRsvpNudge, setShowRsvpNudge] = useState(false);
+  const nudgeDismissedRef = useRef(false);
+
+  // Copy helper for venue popup
+  const [copyStatus, setCopyStatus] = useState<{ address: boolean; phone: boolean }>({ address: false, phone: false });
+  const handleCopy = (text: string, type: 'address' | 'phone') => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopyStatus((prev) => ({ ...prev, [type]: true }));
+      setTimeout(() => {
+        setCopyStatus((prev) => ({ ...prev, [type]: false }));
+      }, 2000);
+    });
+  };
+
+  // Tick elapsed time every 30s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedSeconds((s) => s + 30);
+    }, 30_000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Show nudge only for non-RSVP'd users who visited 2+ times AND spent 5+ min.
+  // If they've already RSVP'd (even mid-session), hide the nudge immediately.
+  useEffect(() => {
+    if (!visitorData) return;
+    if (visitorData.rsvpDone) {
+      setShowRsvpNudge(false); // hide immediately if they just submitted RSVP
+      return;
+    }
+    if (nudgeDismissedRef.current) return;
+    if (visitorData.visitCount >= 2 && elapsedSeconds >= 300) {
+      setShowRsvpNudge(true);
+    }
+  }, [elapsedSeconds, visitorData]);
+
   const handleTitleDoubleClick = () => {
     setTitleLang((prev) => (prev === 'EN' ? 'TE' : 'EN'));
   };
@@ -154,6 +194,7 @@ export default function InvitationCard() {
   const [coupleBgBottom, setCoupleBgBottom] = useState('0');
 
   const coupleSrc = useTransparentTrimmedImage('/couple_blessing_asset.png') || '/couple_blessing_asset.png';
+  const omSrc = useTransparentTrimmedImage('/gold_om_symbol.png') || '/gold_om_symbol.png';
 
   const handleGaneshaDoubleClick = () => {
     setGaneshaStage((prev) => (prev + 1) % 3);
@@ -282,12 +323,46 @@ export default function InvitationCard() {
           )}
 
           <div className={styles.rsvpTriggerContainer}>
-            <button
-              onClick={() => setActiveModal('rsvp')}
-              className={styles.rsvpTriggerBtn}
-            >
-              Join Celebration
-            </button>
+            {visitorData?.rsvpDone ? (
+              /* ── Already RSVP'd: warm confirmation in place of the button ── */
+              <div className={styles.rsvpConfirmed}>
+                <img src={omSrc} alt="Om" className={styles.rsvpConfirmedOmImg} />
+
+                <div className={styles.rsvpConfirmedText}>
+                  <strong>
+                    {visitorData.rsvpName
+                      ? `See you soon, ${visitorData.rsvpName.split(' ')[0]}!`
+                      : 'See you soon!'}
+                  </strong>
+                  <span>Your RSVP is all set. We can't wait to celebrate with you! 🙏</span>
+                </div>
+              </div>
+            ) : (
+              <>
+                {showRsvpNudge && !nudgeDismissedRef.current && (
+                  <div className={styles.rsvpNudge}>
+                    <Bell size={14} className={styles.nudgeIcon} />
+                    <span>You seem very interested — RSVP so we can save your spot! 🙏</span>
+                    <button
+                      className={styles.nudgeDismiss}
+                      onClick={() => {
+                        nudgeDismissedRef.current = true;
+                        setShowRsvpNudge(false);
+                      }}
+                      aria-label="Dismiss"
+                    >
+                      ×
+                    </button>
+                  </div>
+                )}
+                <button
+                  onClick={() => setActiveModal('rsvp')}
+                  className={styles.rsvpTriggerBtn}
+                >
+                  Join Celebration
+                </button>
+              </>
+            )}
           </div>
 
           {/* Interactive Info Bar (Pill Buttons) */}
@@ -395,10 +470,30 @@ export default function InvitationCard() {
                 <h3>The Venue</h3>
                 <div className={styles.modalDivider}></div>
                 <h4 className={styles.venueName}>Home</h4>
-                <p className={styles.venueAddress}>6267 Stumph Rd, Apt 10 A Cleveland, OH 44130</p>
+                <div className={styles.copyableAddressBlock}>
+                  <p className={styles.venueAddress}>6267 Stumph Rd, Apt 10 A, Cleveland, OH 44130</p>
+                  <button
+                    onClick={() => handleCopy("6267 Stumph Rd, Apt 10 A, Cleveland, OH 44130", "address")}
+                    className={styles.modalCopyBtn}
+                    title="Copy Address"
+                  >
+                    {copyStatus.address ? <Check size={14} /> : <Copy size={14} />}
+                    <span>{copyStatus.address ? "Copied" : "Copy"}</span>
+                  </button>
+                </div>
                 <div className={styles.contactRow}>
                   <Phone size={14} className={styles.phoneIcon} />
-                  <span>Jeevan & Vibhaswi: +1 (314) 755-8899</span>
+                  <span className={styles.phoneLabel}>Jeevan & Vibhaswi:</span>
+                  <a href="tel:+13147558899" className={styles.phoneLink}>
+                    +1 (314) 755-8899
+                  </a>
+                  <button
+                    onClick={() => handleCopy("+13147558899", "phone")}
+                    className={styles.modalCopyBtnMini}
+                    title="Copy Phone Number"
+                  >
+                    {copyStatus.phone ? <Check size={12} /> : <Copy size={12} />}
+                  </button>
                 </div>
                 <div className={styles.modalMapContainer}>
                   <iframe
@@ -426,7 +521,7 @@ export default function InvitationCard() {
 
             {activeModal === 'rsvp' && (
               <div className={styles.modalInner} style={{ textAlign: 'left', width: '100%' }}>
-                <RSVPForm isModal={true} />
+                <RSVPForm isModal={true} onRsvpDone={markRsvpDone} />
               </div>
             )}
           </div>
