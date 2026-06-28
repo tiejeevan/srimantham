@@ -14,10 +14,11 @@ export const metadata: Metadata = {
     siteName: "Seemantham Invitation",
     images: [
       {
-        url: "https://bbyshwr.vercel.app/og_banner.png",
+        url: "https://bbyshwr.vercel.app/baby-ganesha-thumb.jpg",
         width: 1024,
         height: 1024,
-        alt: "Jeevan & Vibhaswi's Seemantham — Baby Shower Ceremony, Cleveland OH",
+        alt: "Baby Ganesha blessing — Jeevan & Vibhaswi's Seemantham",
+        type: "image/jpeg",
       },
     ],
     locale: "en_US",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Jeevan & Vibhaswi's Seemantham · Baby Shower Ceremony",
     description: "Join us in celebrating the auspicious Seemantham (Baby Shower) ceremony · Cleveland, OH.",
-    images: ["https://bbyshwr.vercel.app/og_banner.png"],
+    images: ["https://bbyshwr.vercel.app/baby-ganesha-thumb.jpg"],
   },
 };
 
