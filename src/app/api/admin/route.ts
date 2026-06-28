@@ -135,3 +135,30 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const token = searchParams.get('token');
+    const adminPassword = process.env.ADMIN_PASSWORD || '087425';
+
+    if (token !== adminPassword) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized.' },
+        { status: 401 }
+      );
+    }
+
+    // Delete all RSVPs from the database
+    await db.delete(rsvps);
+
+    return NextResponse.json({ success: true, message: 'All RSVPs have been successfully reset.' });
+  } catch (error: any) {
+    console.error('Error resetting RSVPs:', error);
+    return NextResponse.json(
+      { success: false, error: error.message || 'Internal server error.' },
+      { status: 500 }
+    );
+  }
+}
+

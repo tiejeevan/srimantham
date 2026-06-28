@@ -10,7 +10,9 @@ import {
   Download, 
   Lock, 
   RefreshCw,
-  LogOut
+  LogOut,
+  Trash2,
+  AlertTriangle
 } from 'lucide-react';
 import styles from './page.module.css';
 
@@ -44,6 +46,8 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'attending' | 'veg' | 'non-veg' | 'declined'>('all');
   const [isMounted, setIsMounted] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [resetConfirmText, setResetConfirmText] = useState('');
   const [eventDate, setEventDate] = useState('2026-07-03T10:30:00');
   const [tempEventDate, setTempEventDate] = useState('2026-07-03T10:30:00');
   const [eventMessage, setEventMessage] = useState('A grand new adventure is about to begin! Join us as we bless the parents-to-be and shower the mother-to-be with love, bangles, and blessings for a safe delivery and a healthy baby.');
@@ -168,6 +172,31 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleResetSession = async () => {
+    if (!token || resetConfirmText !== 'RESET') return;
+    
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/admin?token=${encodeURIComponent(token)}`, {
+        method: 'DELETE',
+      });
+      const json = await res.json();
+      
+      if (res.ok && json.success) {
+        setShowResetModal(false);
+        setResetConfirmText('');
+        // Re-fetch data to update the UI stats and table
+        fetchData(token);
+      } else {
+        alert(json.error || "Failed to reset session.");
+      }
+    } catch (err) {
+      alert("Failed to reset session due to a network error.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const exportToCsv = () => {
     if (rsvps.length === 0) return;
     
@@ -287,6 +316,22 @@ export default function AdminDashboard() {
           >
             <RefreshCw size={14} className={loading ? styles.spinning : ''} />
             Refresh
+          </button>
+          <button 
+            onClick={() => setShowResetModal(true)} 
+            className="btn-maroon" 
+            style={{ 
+              padding: '0.5rem 1rem', 
+              fontSize: '0.9rem', 
+              gap: '6px',
+              backgroundColor: '#a30000',
+              borderColor: '#800000',
+              color: '#ffffff'
+            }}
+            disabled={loading}
+          >
+            <Trash2 size={14} />
+            New Session
           </button>
           <button 
             onClick={handleLogout} 
@@ -599,6 +644,66 @@ export default function AdminDashboard() {
           )}
         </div>
       </section>
+
+      {showResetModal && (
+        <div className={styles.modalOverlay}>
+          <div className={`${styles.modalContent} border-traditional`}>
+            <div className={styles.modalHeader}>
+              <AlertTriangle className={styles.warningIcon} size={40} />
+              <h3>Caution: Reset Session</h3>
+            </div>
+            
+            <p className={styles.modalDescription}>
+              This action will <strong>permanently delete all current RSVP responses</strong> in the database. 
+              This cannot be undone.
+            </p>
+            
+            <div className={styles.modalVerification}>
+              <label htmlFor="reset-verify" className="form-label" style={{ marginBottom: '0.5rem' }}>
+                To confirm, type <strong className={styles.dangerText}>RESET</strong> below:
+              </label>
+              <input
+                id="reset-verify"
+                type="text"
+                value={resetConfirmText}
+                onChange={(e) => setResetConfirmText(e.target.value)}
+                placeholder="RESET"
+                className="form-input"
+                style={{ textAlign: 'center', fontWeight: 'bold', letterSpacing: '2px', margin: '0.5rem 0' }}
+              />
+            </div>
+            
+            <div className={styles.modalActions}>
+              <button 
+                onClick={() => {
+                  setShowResetModal(false);
+                  setResetConfirmText('');
+                }} 
+                className="btn-gold"
+                style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleResetSession} 
+                className="btn-maroon" 
+                style={{ 
+                  padding: '0.5rem 1.5rem', 
+                  fontSize: '0.9rem',
+                  backgroundColor: resetConfirmText === 'RESET' ? '#a30000' : '#888888',
+                  borderColor: resetConfirmText === 'RESET' ? '#800000' : '#666666',
+                  color: '#ffffff',
+                  opacity: resetConfirmText === 'RESET' ? 1 : 0.5,
+                  cursor: resetConfirmText === 'RESET' ? 'pointer' : 'not-allowed'
+                }}
+                disabled={resetConfirmText !== 'RESET' || loading}
+              >
+                {loading ? 'Resetting...' : 'Yes, Delete Everything'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
